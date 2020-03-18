@@ -1,0 +1,79 @@
+{% import '_includes/macros' as helpers %}
+
+{%- set seg1 = craft.request.getSegment(1) %}
+{%- set seg2 = craft.request.getSegment(2) %}
+{%- set seg3 = craft.request.getSegment(3) %}
+{%- set topLevel = craft.entries({
+    section: 'pages',
+    slug: seg1,
+    limit: 1
+}).first() %}
+{%- set practiceArea = craft.entries({
+    section: 'practiceAreas',
+    slug: seg2,
+    limit: 1
+}).first() %}
+
+{#{%- set practiceAreas = craft.entries({#}
+{#    section: 'practiceAreas',#}
+{#    level: 1#}
+{#}) %}#}
+
+{% set practiceAreas = practiceAreasFilter.practiceAreasList %}
+
+<!doctype html>
+<html id="frunt" lang="en">
+    <head>
+        {% block head %}
+            {%- set metaTitle = metaTitle|default(siteName) %}
+            {%- set metaDescription = metaDescription|default(meta.metaDescription|default('')) %}
+            {%- set ogDescription = ogDescription|default('') %}
+            {%- set ogImage = ogImage|default('') %}
+
+            {% include '_includes/layout/head' %}
+        {% endblock head %}
+    </head>
+    <body class="o-app js-body{% if bodyClass is defined %} {{ bodyClass }}{% endif %}" ontouchstart="">
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53GNKGR"
+                      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+        <div class="o-app">
+
+            <div class="c-topbar">
+                {% include '_includes/layout/topbar' %}
+            </div>
+
+            <header class="o-header js-header">
+                {% include '_includes/layout/header' %}
+            </header>
+
+            <div class="mobilenav">
+                {% include '_includes/layout/mobilenav' %}
+            </div>
+
+            {% block content %}
+
+            {% endblock %}
+
+            <footer class="o-footer">
+                {% include '_includes/layout/footer' %}
+            </footer>
+
+            <div class="c-bottom">
+                {% include '_includes/layout/bottom' %}
+            </div>
+
+        </div>
+
+        {% block foot %}
+            {% include '_includes/layout/foot' %}
+        {% endblock foot %}
+
+        {% block scripts %}
+
+        {% endblock scripts %}
+    </body>
+</html>

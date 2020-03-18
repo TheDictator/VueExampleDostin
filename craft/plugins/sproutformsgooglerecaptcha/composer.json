@@ -1,0 +1,15 @@
+{
+	"name": "picdorsey/sproutformsgooglerecaptcha",
+	"description": "Adds Google reCAPTCHA to sprout forms.",
+	"type": "craft-plugin",
+	"authors": [
+		{
+			"name": "Piccirilli Dorsey, Inc.",
+			"homepage": "http://picdorsey.com"
+		}
+	],
+	"require": {
+		"composer/installers": "~1.0",
+		"google/recaptcha": "~1.1"
+	}
+}

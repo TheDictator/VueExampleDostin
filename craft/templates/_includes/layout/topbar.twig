@@ -1,0 +1,20 @@
+<form class="c-top-search js-form js-search-bar" action="/search/results">
+    <div class="container">
+        <input class="c-search__textinput c-textinput c-top-search__textinput js-form__required js-search__textinput" type="text" name="q" placeholder="keywords" required>
+    </div>
+</form>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <p class="call-no">Call<span class="hide">&nbsp;for a Consultation</span><a class="number js-phone-number"{% if craft.request.isMobileBrowser() %} href="tel:3014412420"{% endif %}>(301) 441-2420</a></p>
+
+            <a class="search-trigger js-search-trigger" href="#"><i class="fa fa-search"></i></a>
+
+            <ul class="topnav">
+                <li><a class="careers" href="/careers">Careers</a></li>
+                <li><a class="portal" href="/client-portal">Client Portal</a></li>
+                <li><a class="payment" href="/make-a-payment"><i class="fa fa-lock"></i> Make a Payment</a></li>
+            </ul>
+        </div>
+    </div>
+</div>

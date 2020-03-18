@@ -1,0 +1,23 @@
+//
+// Attorneys
+//
+
+.t-attorneys {
+
+    &--listing {
+        .c-attorney-listing__attorney {
+            margin-left: 55px;
+            margin-right: 55px;
+
+            @include media-breakpoint-up(sm) {
+                margin-left: 30px;
+                margin-right: 30px;
+            }
+
+            @include media-breakpoint-up(md) {
+                margin-left: 0;
+                margin-right: 0;
+            }
+        }
+    }
+}

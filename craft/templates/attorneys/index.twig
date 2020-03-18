@@ -1,0 +1,92 @@
+{% extends '_layouts/main' %}
+
+{%- set metaTitle = 'Attorneys' %}
+{%- set bodyClass = 't-interior t-listing t-attorneys t-attorneys--listing' %}
+
+{%- set attorneys = craft.entries({
+    section: 'attorneys',
+    order: 'postDate desc'
+}) %}
+
+{% block content %}
+
+<attorneys inline-template>
+
+<main class="o-main" role="main" v-cloak>
+    <div class="c-interior-page-utility">
+        <div class="container">
+                {% include '_includes/parts/breadcrumbs' %}
+            <ul class="breadcrumb print">
+                {% include '_includes/parts/engagement' %}
+            </ul>
+        </div>
+    </div>
+
+    {% include '_includes/parts/interior-stage' with {
+        pageTitle: 'Our Attorneys'
+    } %}
+
+    {% include '_includes/parts/attorney-search' %}
+
+    <div class="c-interior-content">
+        <div class="container">
+            <div class="o-main__content js-ajax__wrapper">
+                <div class="c-attorney-listing">
+                    <div class="container">
+                        <div class="loading" v-if="loading">
+                            <div class="sk-circle">
+                                <div class="sk-circle1 sk-child"></div>
+                                <div class="sk-circle2 sk-child"></div>
+                                <div class="sk-circle3 sk-child"></div>
+                                <div class="sk-circle4 sk-child"></div>
+                                <div class="sk-circle5 sk-child"></div>
+                                <div class="sk-circle6 sk-child"></div>
+                                <div class="sk-circle7 sk-child"></div>
+                                <div class="sk-circle8 sk-child"></div>
+                                <div class="sk-circle9 sk-child"></div>
+                                <div class="sk-circle10 sk-child"></div>
+                                <div class="sk-circle11 sk-child"></div>
+                                <div class="sk-circle12 sk-child"></div>
+                            </div>
+                        </div>
+                        <div class="row" v-else>
+                            {% verbatim %}
+                                <div class="col-sm-6 col-md-4 col-lg-3" v-for="attorney in attorneys">
+                                  <a class="c-attorney-listing__attorney" :href="attorney.url">
+                                      <img :src="attorney.headshot" v-if="attorney.headshot">
+                                      <img src="/assets/img/lawyer.png" alt="" v-else>
+                                      <div class="overlay">
+                                          <p class="name">{{ attorney.name }}</p>
+                                          <p class="title">{{ attorney.position }}</p>
+                                      </div>
+                                  </a>
+                                </div>
+
+                                <div class="col-sm-12 u-text-center" v-show="attorneys.length == 0">
+                                    <div class="c-banner">
+                                        <div class="c-banner__title">
+                                            <i class="fa fa-info"></i> That search did not return any results.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <span class="c-pagination c-pagination--ajax" v-show="pagination.links.next">
+                                      <a class="c-pagination--ajax__button c-button c-button--primary"
+                                          href="#"
+                                          @click.prevent="loadMore"
+                                      >
+                                          Load More
+                                      </a>
+                                </span>
+                            {% endverbatim %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+</attorneys>
+
+{% endblock %}

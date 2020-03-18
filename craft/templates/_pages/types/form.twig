@@ -1,0 +1,17 @@
+{% includeCssResource 'sproutformsgooglerecaptcha/css/sproutFormsGoogleRecaptcha_style.css' %}
+{% includeJsResource 'sproutformsgooglerecaptcha/js/sproutFormsGoogleRecaptcha_script.js' %}
+
+{% if entry.form|length %}
+    {%- set form = entry.form.first().handle %}
+    {% if form is not null %}
+        {%- set formHTML %}
+            {% include '_includes/parts/form' with {
+                'form': form
+            } %}
+        {% endset %}
+
+        {% include '_pages/types/page' with {
+            extra: formHTML
+        } %}
+    {% endif %}
+{% endif %}

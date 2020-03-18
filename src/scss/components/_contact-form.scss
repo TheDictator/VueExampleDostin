@@ -1,0 +1,131 @@
+//
+// Contact Form
+//
+
+.c-contact-form {
+    display: block;
+    margin-top: 3rem;
+
+    padding: $gutter;
+
+    background-color: #fff;
+    border: 1px solid $gray-lighter;
+
+    .c-textinput,
+    .c-textarea {
+        border: 1px solid $gray-lighter;
+        background-color: #F7F7F9;
+    }
+
+    &__row {
+        @include media-breakpoint-up(md) {
+            margin-bottom: $gutter;
+        }
+
+        &:last-child {
+            &,
+            [class*="col"]:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    [class*="col"] {
+        margin-bottom: $gutter;
+
+        text-align: center;
+
+        @include media-breakpoint-up(md) {
+            margin-bottom: 0;
+        }
+    }
+
+    .c-input-group--radio {
+        margin-top: ($gutter / 2);
+    }
+
+    &__contact {
+        .c-input-group__label {
+            margin-bottom: ($gutter / 2);
+        }
+    }
+
+    &__disclaimer {
+        @include clearfix();
+
+        display: block;
+        padding-top: ($gutter / 2);
+
+        text-align: left;
+
+        .fa {
+            display: block;
+            margin: 0 auto ($gutter / 2) auto;
+
+            color: $ui-primary;
+            font-size: 4rem;
+            text-align: center;
+
+            @include media-breakpoint-up(md) {
+                display: inline-block;
+                width: 15%;
+                padding-right: 5%;
+                float: left;
+            }
+        }
+
+        p {
+            display: block;
+            margin: 0;
+
+            color: $gray-light;
+            text-align: left;
+
+            @include media-breakpoint-up(md) {
+                display: inline-block;
+                width: 80%;
+                margin: 0;
+                float: left;
+            }
+        }
+
+        .c-input-group {
+            display: block;
+            margin: 0 auto;
+
+            text-align: center;
+
+            @include media-breakpoint-up(md) {
+                margin: $gutter auto 0 auto;
+            }
+
+            @include media-breakpoint-up(lg) {
+                margin: 0;
+                float: right;
+                text-align: right;
+            }
+        }
+    }
+
+    &__button {
+        display: block;
+        padding-top: ($gutter / 2);
+
+        .c-button {
+            margin: 0 auto;
+        }
+    }
+}
+
+.c-contact-form__errors {
+    margin-top: 3.75rem;
+
+    ul {
+        padding-left: 1rem;
+        list-style: initial;
+    }
+
+    + form {
+        margin-top: $spacer;
+    }
+}

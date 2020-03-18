@@ -1,0 +1,57 @@
+{#
+/**
+ * Sprout Forms Google reCAPTCHA plugin for Craft CMS
+ *
+ * Sprout Forms Google reCAPTCHA Settings.twig
+ *
+ * @author    Nicholas O&#39;Donnell
+ * @copyright Copyright (c) 2016 Nicholas O&#39;Donnell
+ * @link      http://picdorsey.com
+ * @package   SproutFormsGoogleRecaptcha
+ * @since     2.0.1
+ */
+#}
+
+{% import '_includes/forms' as forms %}
+
+{{ forms.textField({
+    label: 'Site Key',
+    required: true,
+    id: 'siteKey',
+    name: 'siteKey',
+    value: settings.siteKey|default('')
+}) }}
+
+{{ forms.textField({
+    label: 'Secret Key',
+    required: true,
+    id: 'secreyKey',
+    name: 'secreyKey',
+    value: settings.secreyKey|default('')
+}) }}
+
+{#
+<hr>
+
+<div class="field" id="settings-enabledForms-field">
+    <div class="heading">
+        <label>Forms to attach ReCAPTCHA</label>
+    </div>
+    <div class="input ltr">
+        {% set options = [] %}
+        {% set values = [] %}
+        {% set availableForms = [] %}
+        {% for availableForm in craft.sproutforms.getAllForms() %}
+            {% set options = options|merge([availableForm.name]) %}
+            {% set values = options|merge([availableForm.handle]) %}
+            {% set availableForms = availableForms|merge({ (availableForm.handle) : availableForm.name}) %}
+        {% endfor %}
+        {{ forms.checkboxGroup({
+            name: 'enabledForms',
+            id: 'enabledForms',
+            options: availableForms,
+            values: settings.enabledForms
+        } )}}
+    </div>
+</div>
+ #}

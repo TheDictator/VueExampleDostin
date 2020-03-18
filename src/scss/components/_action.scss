@@ -1,0 +1,47 @@
+//
+// Label
+//
+
+// Component
+.c-action {
+    padding: 60px 0;
+    background-color: #fff;
+
+    .container {
+        @include media-breakpoint-up(md) {
+            padding: 0 0.9375rem;
+        }
+    }
+
+    .box {
+        padding: 30px;
+        background-color: $blue-dark;
+        color: #fff;
+        text-align: center;
+
+        p {
+            font-size: $font-size-h3;
+            line-height: $line-height - .1;
+            font-weight: $font-weight-normal;
+            margin-bottom: 20px;
+
+            @include media-breakpoint-up(md) {
+                font-size: $font-size-h2;
+            }
+
+            @include media-breakpoint-up(xl) {
+                font-size: $font-size-h1 + .2;
+            }
+        }
+
+        .c-button {
+            color: #fff;
+            margin-bottom: 20px;
+        }
+    }
+}
+
+.gray {
+    background-color: $gray-lightest;
+}
+

@@ -1,0 +1,27 @@
+{%- set queryString = queryString|default(null) %}
+{%- set query = (queryString is not null) ? ('?' ~ queryString.name ~ '=' ~ queryString.value) : '' %}
+
+{% if paginate.totalPages > 1 %}
+    <div class="c-pagination">
+        <ul>
+            {% if paginate.prevUrl %}
+                <li><a href="{{ paginate.prevUrl }}{{ query }}"><i class="fa fa-chevron-left"></i></a>
+            {% endif %}
+
+            {% for page, url in paginate.getPrevUrls(2) %}
+                <li><a href="{{ url }}{{ query }}">{{ page }}</a></li>
+            {% endfor %}
+
+            <li class="active"><a href="">{{ paginate.currentPage }}</a></li>
+
+            {% for page, url in paginate.getNextUrls(2) %}
+                <li><a href="{{ url }}{{ query }}">{{ page }}</a></li>
+            {% endfor %}
+
+            {% if paginate.nextUrl %}
+                <li><a href="{{ paginate.nextUrl }}{{ query }}"><i class="fa fa-chevron-right"></i></a>
+            {% endif %}
+
+        </ul>
+    </div>
+{% endif %}

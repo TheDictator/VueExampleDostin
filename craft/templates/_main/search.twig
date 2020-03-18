@@ -1,0 +1,74 @@
+{% extends '_layouts/main' %}
+
+{%- set query = craft.request.getParam('q') %}
+
+{% if query is empty %}
+    {% redirect '/' %}
+{% endif %}
+
+{%- set results = craft.entries({
+    search: query,
+    order: 'score',
+    section: [
+        'attorneys',
+        'news',
+        'pages',
+        'practiceAreas'
+    ]
+}) %}
+
+{%- set metaTitle = 'Search' %}
+{%- set bodyClass = 't-interior t-search' %}
+
+{% block content %}
+
+<main class="o-main" role="main">
+    <div class="c-interior-page-utility">
+        <div class="container">
+                {% include '_includes/parts/breadcrumbs' %}
+            <ul class="breadcrumb print">
+                {% include '_includes/parts/engagement' %}
+            </ul>
+        </div>
+    </div>
+
+    {% include '_includes/parts/interior-stage' with {
+        pageTitle: metaTitle
+    } %}
+
+    <div class="c-interior-content">
+        <div class="container">
+            <div class="col-xs-12 col-lg-8 left-col">
+                <h1 class="c-interior-content__headline">Your search for <strong>{{ query }}</strong> returned <strong>{{ results|length }} result{% if results|length != 1 %}s{% endif %}</h1>
+
+                <form class="c-input-group c-input-group--duel" action="/search/results">
+                    <input class="c-textinput js-form__required" type="text" name="q" placeholder="Keywords" value="{{ query }}" required>
+                    <button class="c-button c-button--filled">Go</button>
+               </form>
+
+                {% if results|length %}
+                    <div class="t-search__search-results-group js-ajax__wrapper">
+                        {% paginate results.limit(10) as entries %}
+                        {% for entry in entries %}
+                            <div class="c-search-result">
+                                <p class="c-search-result__title">
+                                    <a href="{{ entry.getUrl() }}">{{ entry.title }}</a>
+                                </p>
+                                <a class="c-search-result__url" href="{{ entry.getUrl() }}">{{ entry.getUrl() }}</a>
+                                <p class="c-search-result__description">{{ entry.summary }}</p>
+                            </div>
+                        {% endfor %}
+                        {% include '_includes/parts/pagination' with {
+                            queryString: {
+                                name: 'q',
+                                value: query
+                            }
+                        } %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</main>
+
+{% endblock %}

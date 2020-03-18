@@ -1,0 +1,13 @@
+{
+    "buttons": [
+        "format",
+        "bold",
+        "italic"
+    ],
+    "formatting": [
+        "h2",
+        "p"
+    ],
+    "pastePlainText": true,
+    "structure": true
+}

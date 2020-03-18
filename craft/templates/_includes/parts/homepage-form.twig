@@ -1,0 +1,74 @@
+{% set form = craft.sproutForms.form('homepageContact') %}
+{% set submittedEntry = craft.sproutForms.getEntry(form) %}
+
+{% includeCssResource 'sproutformsgooglerecaptcha/css/sproutFormsGoogleRecaptcha_style.css' %}
+{% includeJsResource 'sproutformsgooglerecaptcha/js/sproutFormsGoogleRecaptcha_script.js' %}
+
+{% if homepageContact is defined and homepageContact.getErrors() | length %}
+    <div class="c-alert c-alert--danger c-alert--block u-left">
+        <strong>Whoops!</strong> Something went wrong!
+        <br><br>
+        <ul class="errors">
+            {% for errors in homepageContact.getErrors() %}
+                {% for error in errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+
+<form class="hp-form" method="post" action="" accept-charset="UTF-8">
+
+    {{ getCsrfInput() }}
+    <input type="hidden" name="action" value="sproutForms/entries/saveEntry">
+    <input type="hidden" name="handle" value="{{ form.handle }}">
+    <input type="hidden" name="redirect" value="{{ form.redirectUri }}">
+
+    {% set fullNameField = form.getField('fullName') %}
+    {% set emailField = form.getField('email') %}
+    {% set phoneField = form.getField('phone') %}
+    {% set descriptionField = form.getField('description') %}
+
+    <div class="row">
+        <p class="form-title">How can we help?</p>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-md-4">
+            <div class="c-input-group">
+                <input type="text" class="c-textinput c-input-group__textinput js-form__required" name="fields[{{ fullNameField.handle }}]" placeholder="Name" value="{{ attribute(submittedEntry, fullNameField.handle) }}" required>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-4">
+            <div class="c-input-group">
+                <input type="email" class="c-textinput c-input-group__textinput js-form__required js-form__email" name="fields[{{ emailField.handle }}]" placeholder="Email" value="{{ attribute(submittedEntry, emailField.handle) }}" required>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-4">
+            <div class="c-input-group">
+                <input type="text" class="c-textinput c-input-group__textinput js-form__required" name="fields[{{ phoneField.handle }}]" placeholder="Phone" value="{{ attribute(submittedEntry, phoneField.handle) }}" required>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <textarea class="c-textarea" name="fields[{{ descriptionField.handle }}]" placeholder="What's your legal issue?">
+                {{- attribute(submittedEntry, descriptionField.handle) -}}
+            </textarea>
+        </div>
+    </div>
+
+    <div class="c-recapatcha">
+        {{ craft.sproutFormsGoogleRecaptcha.getReCapatchaCode()|raw }}
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12 c-contact-form__button">
+            <div class="c-input-group">
+                <button class="c-button">Get help today</button>
+            </div>
+        </div>
+    </div>
+
+</form>

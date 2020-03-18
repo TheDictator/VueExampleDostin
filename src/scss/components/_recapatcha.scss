@@ -1,0 +1,20 @@
+//
+// Recapatcha
+//
+
+.c-recapatcha {
+    display: block;
+    margin: ($gutter / 2) auto;
+    z-index: 99999;
+
+    @include media-breakpoint-up(lg) {
+        position: absolute;
+        margin: 0;
+        float: left;
+    }
+
+    .g-recaptcha {
+        display: block;
+        margin: 0 auto;
+    }
+}

@@ -1,0 +1,79 @@
+//
+// App
+//
+
+// Config
+$breadcrumb-divider: "/" !default;
+
+// Component
+.c-interior-page-utility {
+    @include clearfix();
+
+    padding: 20px 0.9375rem;
+    background-color: #fff;
+
+    .container {
+        position: relative;
+    }
+
+    .c-breadcrumb {
+        display: none;
+
+        @include media-breakpoint-up(md) {
+            display: block;
+        }
+    }
+
+    .print {
+
+    }
+
+    .breadcrumb {
+        @include reset-list;
+
+        font-size: $font-size-sm;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+
+        > li {
+            display: inline-block;
+
+            max-width: 200px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+
+            + li:before {
+                $nbsp: "\00a0";
+                padding-right: .2rem;
+                padding-left: .2rem;
+                color: $gray-light;
+                content: "#{$breadcrumb-divider}#{$nbsp}";
+            }
+
+            a {
+                color: $blue;
+
+                &:hover {
+                    color: $blue-light;
+                }
+            }
+        }
+
+        > .is-active {
+            color: $gray-dark;
+        }
+    }
+
+    .print {
+        float: right;
+
+        @include media-breakpoint-up(md) {
+            position: absolute;
+            top: 0;
+            right: 0.9375rem;
+
+            float: none;
+        }
+    }
+}

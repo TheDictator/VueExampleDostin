@@ -1,0 +1,39 @@
+//
+// Main
+//
+
+// Object
+.o-main {
+    background-color: #fff;
+
+    &__content {
+
+    }
+
+    &__sidebar {
+        padding-top: $gutter;
+
+        @include media-breakpoint-up(md) {
+            padding-top: 0;
+        }
+
+        &__component {
+            margin-bottom: ($gutter * 1.5);
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    &__content,
+    &__sidebar {
+        > :first-child {
+            margin-top: 0;
+        }
+
+        > :last-child {
+            margin-bottom: 0;
+        }
+    }
+}

@@ -1,0 +1,61 @@
+//
+// Select
+//
+
+.c-select {
+    color: #fff;
+    background-color: $ui-primary;
+
+    .c-select__input {
+        padding: 0 ($gutter / 1.5);
+
+        color: #fff;
+        text-transform: uppercase;
+        font-weight: $font-weight-bold;
+        letter-spacing: 1px;
+
+        &,
+        &:hover,
+        &:focus {
+            background-color: transparent;
+            background-image: url('/assets/img/arrow-down.png');
+            background-position: right ($gutter / 1.5) center;
+            background-repeat: no-repeat;
+            background-size: 20px;
+            border: 0;
+
+            transition: none;
+
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+
+        option {
+            color: $gray-dark;
+
+            &,
+            &:selected,
+            &:hover {
+                background-color: transparent;
+            }
+
+            &:selected,
+            &:focus {
+                color: #fff;
+                text-transform: uppercase;
+            }
+        }
+    }
+}
+
+select::-ms-expand{
+  display: none;
+}
+
+@media all and (min-width:0\0) and (min-resolution:.001dpcm) {
+    .c-select__input {
+        color: initial !important;
+    }
+
+}

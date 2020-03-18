@@ -1,0 +1,20 @@
+{
+    "buttons": [
+        "format"
+    ],
+    "plugins": [
+        "source"
+    ],
+    "formatting": [
+    ],
+    "formattingAdd": {
+        "span": {
+            title: "<span>Span</span>",
+            args: ['span', 'class', 'span']
+        },
+        "light": {
+            title: "<span>Light</span>",
+            args: ['span', 'class', 'light']
+        }
+    }
+}

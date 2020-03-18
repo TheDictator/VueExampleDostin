@@ -1,0 +1,34 @@
+{% import '_includes/macros' as helpers %}
+
+{%- set seg1 = craft.request.getSegment(1) %}
+{%- set seg2 = craft.request.getSegment(2) %}
+{%- set seg3 = craft.request.getSegment(3) %}
+
+<!doctype html>
+<html id="frunt" style="overflow-y:hidden;background:#fff;box-shadow:none;">
+    <head>
+        {% block head %}
+            {%- set metaTitle = metaTitle|default(siteName) %}
+            {%- set metaDescription = metaDescription|default(meta.metaDescription|default('')) %}
+            {%- set ogDescription = ogDescription|default('') %}
+            {%- set ogImage = ogImage|default('') %}
+
+            {% include '_includes/layout/head' %}
+        {% endblock head %}
+    </head>
+    <body class="o-app o-app--basic js-body{% if bodyClass is defined %} {{ bodyClass }}{% endif %}">
+
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53GNKGR"
+                      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+        {% block content %}
+
+        {% endblock %}
+
+        {% block foot %}
+            {% include '_includes/layout/foot' %}
+        {% endblock foot %}
+
+    </body>
+</html>

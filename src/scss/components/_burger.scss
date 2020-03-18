@@ -1,0 +1,61 @@
+//
+// Burger
+//
+
+// Config
+$burger-width: 30px;
+$burger-height: 5px;
+$burger-gutter: 3px;
+$burger-bg-color: $gray-lighter;
+$burger-border-radius: 0;
+$burger-transition-duration: .3s;
+
+// Component
+.c-burger {
+    $burger-height: $burger-height !global;
+    $burger-gutter: $burger-gutter !global;
+
+    position: relative;
+    margin-top: $burger-height + $burger-gutter;
+    margin-bottom: $burger-height + $burger-gutter;
+
+    user-select: none;
+    text-indent: -999px;
+
+    &, &:before, &:after {
+        display: block;
+        width: $burger-width;
+        height: $burger-height;
+        background-color: $burger-bg-color;
+
+        @if $burger-border-radius != 0 {
+            border-radius: $burger-border-radius;
+        }
+        transition-property: background-color, transform;
+        transition-duration: $burger-transition-duration;
+    }
+
+    &:before, &:after {
+        position: absolute;
+        content: "";
+    }
+
+    &:before {
+        margin-top: -($burger-height + $burger-gutter);
+    }
+
+    &:after {
+        margin-top: $burger-height + $burger-gutter;
+    }
+
+    .is-active & {
+        background-color: transparent;
+
+        &:before {
+            transform: translateY($burger-gutter + $burger-height) rotate(45deg);
+        }
+        &:after {
+            transform: translateY(-($burger-gutter + $burger-height)) rotate(-45deg);
+        }
+    }
+}

@@ -1,0 +1,32 @@
+<aside class="o-main__sidebar">
+    {% if topLevel is defined and topLevel is not null %}
+        {%- set navItems = topLevel.getDescendants().level(2) %}
+
+        {% if navItems|length %}
+            <div class="right-col c-subnav o-main__sidebar__component">
+                <p class="section-head-nav">{{ topLevel.title }}</p>
+
+                <ul class="c-interior-right-nav">
+                    {% for nav in navItems %}
+                        {%- set isActive = entry is defined and entry.slug == nav.slug or nav.slug == seg2 %}
+                        {%- set children = nav.getDescendants().level(3) %}
+                        <li class="c-navbar__navigation__nav-item">
+                            <a href="{{ nav.url }}" class="{% if isActive %}is-active{% endif %}">{{ nav.title }} <i class="fa fa-chevron-right"></i></a>
+                            {% if isActive and children|length %}
+                                <ul class="c-navbar__navigation__subnav">
+                                    {% for child in children %}
+                                        {%- set isActive = entry is defined and entry.slug == child.slug %}
+                                        <li class="c-navbar__navigation__subnav__nav-item">
+                                            <a href="{{ child.url }}" class="{% if isActive %}is-active{% endif %}">{{ child.title }} <i class="fa fa-chevron-right"></i></a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    {% endif %}
+
+</aside>

@@ -1,0 +1,57 @@
+{% extends '_layouts/main' %}
+
+{%- set metaTitle = entry.metaTitle|default(entry.title) %}
+{%- set metaDescription = entry.metaDescription %}
+{%- set bodyClass = 't-interior t-' ~ entry.slug  %}
+{%- set ogDescription = entry.ogDescription|default(entry.summary) %}
+{%- set ogImage = ((entry.ogImage|length) ? entry.ogImage.first().getUrl())|default((entry.headerImage|length) ? entry.headerImage.first().getUrl()) %}
+
+{% block content %}
+
+{% if craft.pD.templateExists('_pages/individual/' ~ entry.slug) %}
+    {% include '_pages/individual/' ~ entry.slug %}
+{% else %}
+
+    <main class="o-main" role="main">
+        <div class="c-interior-page-utility">
+            <div class="container">
+                    {% include '_includes/parts/breadcrumbs' %}
+                <ul class="breadcrumb print">
+                    {% include '_includes/parts/engagement' %}
+                </ul>
+            </div>
+        </div>
+
+        {% include '_includes/parts/interior-stage' with {
+            pageTitle: topLevel.title|default(entry.title)
+        } %}
+
+        <div class="c-interior-content">
+            <div class="container">
+                <div class="col-xs-12 col-lg-8 left-col">
+                    <h1 class="u-visible-print-block print-title">{{ entry.title }}</h1>
+                    <div class="o-main__content">
+                        {% include '_pages/types/' ~ entry.type %}
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-lg-4 right-col">
+                    {% include '_includes/sidebar/page' %}
+                </div>
+            </div>
+        </div>
+
+        {% if entry.actionBanner|length %}
+            {%- set actionBanner = entry.actionBanner.first() %}
+            {% include '_includes/parts/action-banner' with {
+                class: 'gray',
+                text: actionBanner.text,
+                buttonLink: actionBanner.buttonLink,
+                buttonText: actionBanner.buttonText
+            } %}
+        {% endif %}
+
+    </main>
+{% endif %}
+
+{% endblock %}

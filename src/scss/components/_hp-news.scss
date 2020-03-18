@@ -1,0 +1,139 @@
+//
+// Label
+//
+
+// Component
+.c-hp-news {
+    position: relative;
+    padding: 60px 0;
+    background-color: $gray-lightest;
+    margin-top: 0;
+    overflow: hidden;
+
+    .section-head {
+        margin-bottom: 20px;
+        font-family: $font-family-serif;
+        font-size: $font-size-h2;
+        font-weight: $font-weight-normal;
+        border-bottom: 1px solid #dedede;
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+    }
+
+    .credit {
+        font-size: $font-size-base - .1;
+        color: $gray;
+
+        span {
+            font-style: italic;
+            color: $blue-light;
+        }
+    }
+
+    .hp-featured {
+
+        @include media-breakpoint-up(md) {
+            border-right: 1px solid #dedede;
+            padding-right: 40px;
+            padding-left: 0;
+        }
+
+        a {
+
+            &.headline {
+                display: block;
+                margin-bottom: 5px;
+                // font-family: $font-family-serif;
+                font-size: $font-size-h2;
+                font-weight: 600;
+                line-height: $line-height - .2;
+                letter-spacing: -.02rem;
+                color: $blue;
+            }
+
+            &:last-child,
+            &.last {
+                border-bottom: none;
+            }
+
+            &:hover {
+                color: $blue-light;
+            }
+        }
+
+        .featured-photo-block {
+            position: relative;
+
+            .featured-photo {
+                margin-top: 10px;
+                width: 100%;
+            }
+
+            .caption {
+                display: none;
+
+                @include media-breakpoint-up(md) {
+                    display: block;
+                    margin-bottom: 0;
+                    padding: 10px 0;
+                    font-size: $font-size-sm;
+                    // background-color: #fff;
+                    color: $gray;
+                }
+            }
+        }
+    }
+
+    .hp-news {
+
+        margin-top: 40px;
+
+        @include media-breakpoint-up(md) {
+            margin-top: 0;
+            padding-right: 0;
+            padding-left: 30px;
+        }
+
+        a.item {
+            width: 100%;
+            float: left;
+            margin-bottom: 12px;
+            font-size: $font-size-base;
+            line-height: $line-height - .1;
+            font-weight: 600;
+            color: $blue;
+            border-bottom: 1px solid #dedede;
+
+            @include media-breakpoint-up(lg) {
+                margin-bottom: 15px;
+                font-size: $font-size-lg - .2;
+            }
+
+            i {
+                font-size: $font-size-lg;
+                float: left;
+                padding-top: 3px;
+                margin-right: 10px;
+                color: $gray-light;
+            }
+
+            .headline {
+                width: 85%;
+                float: left;
+                margin-bottom: 12px;
+
+                @include media-breakpoint-up(lg) {
+                    margin-bottom: 15px;
+                }
+            }
+
+            &.last {
+                border-bottom: none;
+            }
+
+            &:hover {
+                color: $blue-light;
+            }
+        }
+    }
+}

@@ -1,0 +1,101 @@
+<main class="o-main" role="main">
+    <div class="c-interior-page-utility">
+        <div class="container">
+                {% include '_includes/parts/breadcrumbs' %}
+            <ul class="breadcrumb print">
+                {% include '_includes/parts/engagement' %}
+            </ul>
+        </div>
+    </div>
+
+    {% include '_includes/parts/interior-stage' with {
+        pageTitle: topLevel.title|default(entry.title)
+    } %}
+
+    <div class="c-interior-content">
+        <div class="container">
+            <div class="col-xs-12 col-lg-8 left-col">
+                <h1 class="u-visible-print-block print-title">{{ entry.title }}</h1>
+                <div class="o-main__content">
+                    {% if entry.headerImage|length %}
+                        {%- set headerImage = entry.headerImage.first() %}
+                        <img class="main-photo" src="{{ headerImage.getUrl({
+                            mode: 'crop',
+                            width: 1000,
+                            height: 500,
+                            quality: 100,
+                            position: 'center-center'
+                        }) }}" alt="{{ headerImage.altText }}">
+                    {% endif %}
+                    {{ entry.body }}
+
+                    <div class="row t-contact__addresses js-equalizer">
+                        <div class="col-xs-12 col-md-4">
+                            <div class="t-contact__address js-equalizer__elements">
+                                <div class="t-contact__address__content greenbelt is-active">
+                                    <p class="t-contact__address__headline">Greenbelt Office</p>
+                                    <address class="t-contact__address__address">
+                                        6411 Ivy Lane Suite 200<br>
+                                        Greenbelt, MD 20770
+                                    </address>
+                                    <ul class="t-contact__address__phone">
+                                        <li><a class="num js-phone-number external" href="tel:3014412420" target="_blank">(301) 441-2420</a> <span class="label">Phone</span></li>
+                                        <li><a class="num external" href="tel:3019829450" target="_blank">(301) 982-9450</a> <span class="label">Fax</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-4">
+                            <div class="t-contact__address js-equalizer__elements">
+                                <div class="t-contact__address__content annapolis is-active">
+                                    <p class="t-contact__address__headline">Annapolis Office</p>
+                                    <address class="t-contact__address__address">
+                                        888 Bestgate Road Suite 402 <br>
+                                        Annapolis, MD 21401
+                                    </address>
+                                    <ul class="t-contact__address__phone">
+                                        <li><a class="num js-phone-number external" href="tel:4102669909" target="_blank">(410) 266-9909</a> <span class="label">Phone</span></li>
+                                        <li><a class="num external" href="tel:4102668425" target="_blank">(410) 266-8425</a> <span class="label">Fax</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-4">
+                            <div class="t-contact__address js-equalizer__elements">
+                                <div class="t-contact__address__content alexandria is-active">
+                                    <p class="t-contact__address__headline">Alexandria Office</p>
+                                    <address class="t-contact__address__address">
+                                        950 N. Washington Street Suite 210<br>
+                                        Alexandria, VA 22314
+                                    </address>
+                                    <ul class="t-contact__address__phone">
+                                        <li><a class="num js-phone-number external" href="tel:7033235620" target="_blank">(703) 270-9600</a> <span class="label">Phone</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {% include '_includes/parts/contact-form' %}
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-lg-4 right-col">
+                {% include '_includes/sidebar/page' %}
+            </div>
+        </div>
+    </div>
+
+    {% if entry.actionBanner|length %}
+        {%- set actionBanner = entry.actionBanner.first() %}
+        {% include '_includes/parts/action-banner' with {
+            class: 'gray',
+            text: actionBanner.text,
+            buttonLink: actionBanner.buttonLink,
+            buttonText: actionBanner.buttonText
+        } %}
+    {% endif %}
+
+    {% include '_includes/parts/map' %}
+
+</main>

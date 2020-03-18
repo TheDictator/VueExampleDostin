@@ -1,0 +1,19 @@
+{%- set pageTitle = pageTitle|default(metaTitle) %}
+{%- set segments = craft.request.getSegments() %}
+{%- set length = segments|length %}
+{%- set segmentsWithoutLast = (length > 1) ? segments[:length - 1] : null %}
+
+{% if pageTitle %}
+    <div class="c-interior-stage">
+        <div class="container">
+            <div class="col-md-12">
+                <div class="colorbar">
+                    <p class="page-title">{{ pageTitle }}</p>
+                    {% if segmentsWithoutLast is not null %}
+                        <a href="/{{ segmentsWithoutLast|join('/') }}"><p class="backto"><i class="fa fa-chevron-left"></i> Back</p></a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}

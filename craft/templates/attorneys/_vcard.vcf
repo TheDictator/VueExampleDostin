@@ -1,0 +1,14 @@
+{% set entry = craft.entries({
+    slug: attorney,
+    limit: 1
+}).first() %}
+BEGIN:VCARD
+VERSION:3.0
+N:{{ entry.title }}
+FN:{{ entry.title }}
+ORG:McNamee Hosea
+TITLE:{{ entry.attorneyPosition }}
+{% set phoneNumber = craft.pD.formatPhone(entry.attorneyPhone) %}
+TEL;WORK;VOICE:{{ phoneNumber.pretty }}
+EMAIL;PREF;INTERNET:{{ entry.attorneyEmail }}
+END:VCARD

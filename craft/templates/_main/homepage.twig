@@ -1,0 +1,244 @@
+{% extends '_layouts/main' %}
+
+{%- set metaTitle = entry.metaTitle|default(entry.title) %}
+{%- set metaDescription = entry.metaDescription %}
+{%- set bodyClass = 't-homepage' %}
+
+{% block content %}
+
+    {% if entry.slideshow|length %}
+        <div class="c-hp-stage">
+
+            <div class="cycle-slideshow-m js-slideshow">
+                {% for slide in entry.slideshow if slide.image|length %}
+                    <div class="slide slide{{ loop.index }}" data-slide-num="{{ loop.index }}"
+                         style="background-image: url({{ slide.image.first().getUrl({
+                             mode: 'crop',
+                             width: 1400,
+                             height: 640,
+                             quality: 100,
+                             position: 'center-center'
+                         }) }});" alt="{{ slide.image.first().altText }}">
+                        {% if slide.linkToPage | length and slide.buttonText | length%}
+                            <div class="slider-button-wrapper">
+                                <a href="{{ slide.linkToPage.first.url }}"
+                                   class="c-button c-button--default">{{ slide.buttonText }} </a>
+                            </div>
+
+                        {% endif %}
+                    </div>
+                {% endfor %}
+
+                <div class="arrow arrow-left cycle-prev" id="prev"><i class="fa fa-chevron-left"></i></div>
+                <div class="arrow arrow-right cycle-next" id="next"><i class="fa fa-chevron-right"></i></div>
+
+            </div>
+
+            <div class="stage-text-block">
+                <div class="container">
+                    {% for slide in entry.slideshow if slide.image|length %}
+                        {%- set parts = slide.caption|split('|') %}
+                        <h2 class="slide-caption slide-caption{{ loop.index }} js-slideshow__caption">
+                            {% if parts|length == 1 %}
+                                <span class="{% if loop.index == 1 %} is-active{% endif %}">{{ slide.caption|trim }}</span>
+                            {% else %}
+                                {% for part in parts %}
+                                    <span class="{{ (loop.index0 % 2 == 0) ? 'hide' : 'light' }}{% if loop.index == 1 %} is-active{% endif %}">{{ part|trim }}</span>
+                                {% endfor %}
+                            {% endif %}
+                        </h2>
+                        <br/>
+
+
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if entry.callout %}
+        <div class="stage-callout">
+            <div class="container">
+                <div class="col-md-10 col-md-offset-1">
+                    {{ entry.callout }}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if entry.calloutBoxes %}
+        <div class="c-hp-boxes">
+            <div class="container">
+                <div class="row equal-cols">
+                    {% for calloutBox in entry.calloutBoxes if calloutBox.image|length %}
+                        <div class="col-md-4">
+                            <div class="box">
+                                <img src="{{ calloutBox.image.first().getUrl({
+                                    mode: 'crop',
+                                    width: 400,
+                                    height: 325,
+                                    quality: 100,
+                                    position: 'center-center'
+                                }) }}" alt="{{ calloutBox.image.first().altText }}">
+                                <div class="overlay-bar">
+                                    <p class="headline">{{ calloutBox.headline }}</p>
+                                    <p>{{ calloutBox.caption }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="row">
+                    <div class="col-md-12 buttons">
+                        <a href="/about" class="c-button c-button--default">Our Legal Services <i
+                                class="fa fa-chevron-right"></i></a>
+                        <a href="/contact" class="c-button c-button--default">Contact McNamee Hosea Today <i
+                                class="fa fa-chevron-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if practiceAreas|length %}
+        <main class="c-hp-practice-areas">
+            <div class="container">
+                <div class="col-md-6 col-xl-5 areas">
+                    <p class="section-head">Practice Areas</p>
+                    <form class="areas-search" action="/search/results">
+                        <input type="text" name="q" placeholder="Search">
+                        <button type="submit" class="search-trigger"><i class="fa fa-search"></i></button>
+                    </form>
+                    <ul>
+                        {% for practiceArea in practiceAreas if not practiceArea.hideInNavigation %}
+                            <li><a href="{{ practiceArea.url }}"
+                                   class="c-hp-practice-areas__list js-hover-tabs__trigger{% if loop.index == 1 %} is-active{% endif %}"
+                                   data-hover-tabs-id="{{ practiceArea.id }}"
+                                   data-hover-tabs-mobile="false">{{ practiceArea.title }}<i
+                                        class="fa fa-chevron-right"></i></a></li>
+                        {% endfor %}
+                        <li><a href="#" onclick="return false" class="c-hp-practice-areas__list js-hover-tabs__trigger"
+                               data-hover-tabs-id="more" data-hover-tabs-mobile="false">More<i
+                                    class="fa fa-chevron-right"></i></a></li>
+                    </ul>
+                </div>
+                <div class="col-md-6 col-xl-7 services">
+                    {% for practiceArea in practiceAreas %}
+                        <div class="c-hp-practice-areas__service js-hover-tabs__target{% if loop.index == 1 %} is-active{% endif %}"
+                             data-hover-tabs-id="{{ practiceArea.id }}">
+                            {%- set descendants = craft.entries({
+                                section: 'practiceAreas',
+                                level: 2,
+                                descendantOf: practiceArea
+                            }) %}
+                            <p class="section-head">{{ practiceArea.title }} Services</p>
+                            <ul>
+                                {% for descendant in descendants %}
+                                    <li><a href="{{ descendant.url }}">{{ descendant.title }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endfor %}
+                    <div class="c-hp-practice-areas__service js-hover-tabs__target" data-hover-tabs-id="more">
+                        {%- set descendants = craft.entries({
+                            section: 'practiceAreas',
+                            level: 1,
+                            search: 'hideInNavigation:1'
+                        }) %}
+                        <p class="section-head">More Services</p>
+                        <ul>
+                            {% for descendant in descendants %}
+                                <li><a href="{{ descendant.url }}">{{ descendant.title }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </main>
+    {% endif %}
+
+    {% if entry.featuredNewsStory|length %}
+        {%- set newsEntries = craft.entries({
+            section: 'news',
+            order: 'postDate desc',
+            limit: 6,
+            id: 'not ' ~ entry.featuredNewsStory.first().id
+        }) %}
+    {% else %}
+        {%- set newsEntries = craft.entries({
+            section: 'news',
+            order: 'postDate desc',
+            limit: 6,
+        }) %}
+    {% endif %}
+    {% set blogPosts = craft.entries.section('blog') %}
+    <div class="c-hp-news">
+        <div class="container">
+            {% if blogPosts|length %}
+                <div class="col-md-6 hp-news">
+                    <p class="section-head">Law Advisor Blog</p>
+
+                    {% for post in blogPosts.limit(6) %}
+                        <a class="item{% if loop.last %} last{% endif %}" href="{{ post.url }}">
+                            <i class="fa fa-text-document-inverted"></i>
+                            <p class="headline">{{ post.title }}</p>
+                        </a>
+
+                    {% endfor %}
+                    <br>
+
+                    <a href="/blog" class="c-button">View all <i class="fa fa-chevron-right"></i></a>
+                    <br>
+                </div>
+            {% endif %}
+            {% if newsEntries|length %}
+                <div class="col-md-6 hp-news">
+                    <p class="section-head">McNamee Hosea News & Press</p>
+
+                    {% for newsEntry in newsEntries %}
+                        <a class="item{% if loop.last %} last{% endif %}" href="{{ newsEntry.url }}">
+                            <i class="fa fa-text-document-inverted"></i>
+                            <p class="headline">{{ newsEntry.title }}</p>
+                        </a>
+                    {% endfor %}
+                    <a href="/news" class="c-button">View all <i class="fa fa-chevron-right"></i></a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    {%- set attorneys = craft.entries({
+        section: 'attorneys',
+        order: 'RAND()'
+    }) %}
+    {% include '_includes/parts/attorney-slide' with {
+        attorneys: attorneys
+    } %}
+
+    <div class="c-photo-callout" style="background-image: url(assets/img/photo-callout.png);">
+        <div class="container">
+            <div class="copy-box">
+                <p class="first-line">We Make it Our Business</p>
+                <p class="second-line">to Know Your Business</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="c-hp-form">
+        <div class="container">
+            <p class="section-head">Contact Us</p>
+
+            {% include '_includes/parts/homepage-form' %}
+
+        </div>
+    </div>
+
+    {% include '_includes/parts/action-banner' with {
+        text: 'For your convenience, we accept online payments.',
+        buttonLink: '/make-a-payment',
+        buttonText: '<i class="fa fa-lock"></i> Make a payment'
+    } %}
+
+    {% include '_includes/parts/map' %}
+
+{% endblock %}

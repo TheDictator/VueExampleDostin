@@ -1,0 +1,633 @@
+{% extends '_layouts/main' %}
+
+{%- set metaTitle = entry.metaTitle ? entry.metaTitle : entry.title ~ ' — Attorney' %}
+{%- set metaDescription = entry.metaDescription %}
+{%- set bodyClass = 't-interior t-post t-attorneys t-attorneys--entry' %}
+
+{% block content %}
+
+    <main class="o-main" role="main">
+        <div class="c-interior-page-utility">
+            <div class="container">
+                {% include '_includes/parts/breadcrumbs' %}
+                <ul class="breadcrumb print">
+                    {% include '_includes/parts/engagement' with {
+                    printOverride: entry.attorneyBioPdf|length ? entry.attorneyBioPdf.first()
+                    } %}
+                </ul>
+            </div>
+        </div>
+
+        <div class="c-attorney-info">
+            <div class="container">
+                <div class="col-wrapper">
+                    <div class="row">
+                        <div class="col-lg-6 left-col">
+                            {% if entry.attorneyHeadshot|length %}
+                                {%- set headshot = entry.attorneyHeadshot.first() %}
+                                <img src="{{ headshot.getUrl({
+                                    mode: 'crop',
+                                    width: 680,
+                                    height: 528,
+                                    quality: 100,
+                                    position: 'top-center'
+                                }) }}" alt="{{ headshot.altText }}">
+                            {% else %}
+                                <img class="photo" src="/assets/img/lawyer-large.png" alt="">
+                            {% endif %}
+                        </div>
+                        <div class="col-lg-6 right-col">
+                            <p class="name">{{ entry.title }}</p>
+                            <p class="title">{{ entry.attorneyPosition }}</p>
+                            <ul class="info">
+                                {% if entry.attorneyEmail %}
+                                    <li><a href="mailto:{{ entry.attorneyEmail }}"><i class="fa fa-mail"></i> Email
+                                            Me</a></li>
+                                {% endif %}
+                                {% if entry.attorneyPhone %}
+                                    {% set phoneNumber = craft.pD.formatPhone(entry.attorneyPhone) %}
+                                    <li><a href="tel:{{ phoneNumber.numbers }}"><i
+                                                    class="fa fa-mobile"></i> {{ phoneNumber.pretty }}</a></li>
+                                {% endif %}
+                                {% if entry.attorneyLinkedln %}
+                                    <li><a href="{{ entry.attorneyLinkedln }}"><i class="fa fa-linkedin"></i> Let's
+                                            Connect</a></li>
+                                {% endif %}
+                                <li><a href="/attorneys/{{ entry.slug }}/vcard"><i class="fa fa-add-user"></i> Add to
+                                        Contacts</a></li>
+                            </ul>
+                        </div>
+                        {% if entry.attorneyLocation|length %}
+                            <p class="office">Office:
+                                {% for location in entry.attorneyLocation %}
+                                    {{ location }}{% if not loop.last %} &amp; {% endif %}
+                                {% endfor %}
+                            </p>
+                        {% endif %}
+                    </div>
+                </div>
+
+                {% if entry.attorneyQuote %}
+                    <div class="row">
+                        <div class="col-xs-10 col-xs-offset-1 col-lg-8 col-lg-offset-2">
+                            <!--span class="quote-mark"><i class="fa fa-quote"></i></span-->
+                            <hr class="divider">
+                            <h3 class="quote">{{ entry.attorneyQuote }}</h3>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="c-interior-content">
+            <div class="container">
+                <div class="col-md-12">
+
+                    {% if entry.body %}
+                        <h1>About {{ entry.attorneyFirstName }}</h1>
+                        {{ entry.body }}
+                    {% endif %}
+
+                    {% if entry.attorneyPracticeAreas|length %}
+                        <h2>Practice Areas</h2>
+
+                        <div class="c-boxes">
+                            {% for practiceArea in entry.attorneyPracticeAreas %}
+                                <div class="col-xs-6 col-md-4 col-lg-3 col-xxl-2 u-p-l-0">
+                                    <a class="box" href="{{ practiceArea.url }}">
+                                        <p>{{ practiceArea.title }}</p>
+                                        <div class="overlay">
+                                            <p>Learn More <i class="fa fa-chevron-right"></i></p>
+                                        </div>
+                                    </a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="c-accordion js-accordion">
+            <ul class="c-accordion__wrapper">
+                <li class="c-accordion__element">
+                    <a class="c-accordion__trigger js-accordion__trigger" data-accordion-id="credentials" href="#">Credentials</a>
+                    <div class="c-accordion__content js-accordion__content">
+                        <div class="c-tabbed-content__tab-content is-active" data-toggle-tabs-id="credentials">
+                            {%- set empty = true %}
+                            <div class="container">
+                                <div class="col-md-6">
+                                    {% if entry.attorneyEducation|length %}
+                                        <div class="c-tabbed-content__tab-section">
+                                            <h2 class="c-tabbed-content__tab-section__headline">Education</h2>
+                                            <div class="c-tabbed-content__tab-section__content">
+                                                <ul class="c-tabbed-content__education">
+                                                    {% for education in entry.attorneyEducation %}
+                                                        <li class="c-tabbed-content__education__block">
+                                                            <p class="c-tabbed-content__education__degree">{{ education.degree }}</p>
+                                                            <div class="c-tabbed-content__education__info">
+                                                                <a class="c-tabbed-content__education__school"{% if education.schoolLink %} href="{{ education.schoolLink }}"{% endif %}>{{ education.school }}</a>
+                                                                <p class="c-tabbed-content__education__location">{{ education.location }}</p>
+                                                                {% if education.major %}
+                                                                    <p class="c-tabbed-content__education__major">Major:
+                                                                        <a>{{ education.major }}</a></p>
+                                                                {% endif %}
+                                                            </div>
+                                                        </li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        {%- set empty = false %}
+                                    {% endif %}
+
+                                    {% if entry.attorneyAffiliations|length %}
+                                        <div class="c-tabbed-content__tab-section last">
+                                            <h2 class="c-tabbed-content__tab-section__headline">Affiliations</h2>
+                                            <div class="c-tabbed-content__tab-section__content">
+                                                <ul class="c-tabbed-content__list">
+                                                    {% for affiliation in entry.attorneyAffiliations if affiliation.affiliation %}
+                                                        <li>{{ affiliation.affiliation }}</li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        {%- set empty = false %}
+                                    {% endif %}
+
+                                </div>
+                                <div class="col-md-6">
+                                    {% if entry.attorneyAdmission|length %}
+                                        <div class="c-tabbed-content__tab-section last">
+                                            <h2 class="c-tabbed-content__tab-section__headline">Admissions</h2>
+                                            <div class="c-tabbed-content__tab-section__content">
+                                                <ul class="c-tabbed-content__list">
+                                                    {% for attorneyAdmission in entry.attorneyAdmission if attorneyAdmission.admission %}
+                                                        <li>{% if attorneyAdmission.year %}<span
+                                                                    class="emphasis">{{ attorneyAdmission.year }}</span>{% endif %}{{ attorneyAdmission.admission }}
+                                                        </li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        {%- set empty = false %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                            {% if empty %}
+                                {% set myCss %}
+                                    [data-toggle-tabs-id*="credentials"],
+                                    [data-accordion-id*="credentials"] {
+                                    display: none;
+                                    }
+                                {% endset %}
+                                {% includeCss myCss %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </li>
+                <li class="c-accordion__element">
+                    <a class="c-accordion__trigger js-accordion__trigger" data-accordion-id="accolades" href="#">Accolades</a>
+                    <div class="c-accordion__content js-accordion__content">
+                        <div class="c-tabbed-content__tab-content" data-toggle-tabs-id="accolades">
+                            {%- set empty = true %}
+                            <div class="container">
+                                <div class="col-md-6">
+                                    {% if entry.attorneyAwards|length %}
+                                        <div class="c-tabbed-content__tab-section">
+                                            <h2 class="c-tabbed-content__tab-section__headline">Awards</h2>
+                                            <div class="c-tabbed-content__tab-section__content">
+                                                <ul class="c-tabbed-content__list">
+                                                    {% for award in entry.attorneyAwards if award.awardName %}
+                                                        <li>
+                                                            <a{% if award.awardLink %} href="{{ award.awardLink }}"{% endif %}>{{ award.awardName }}</a>
+                                                        </li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        {%- set empty = false %}
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-6">
+                                    {% if entry.attorneyHonors|length %}
+                                        <div class="c-tabbed-content__tab-section">
+                                            <h2 class="c-tabbed-content__tab-section__headline">Honors</h2>
+                                            <div class="c-tabbed-content__tab-section__content">
+                                                <ul class="c-tabbed-content__list">
+                                                    {% for honor in entry.attorneyHonors if honor.honorName %}
+                                                        <li>
+                                                            <a{% if honor.honorLink %} href="{{ honor.honorLink }}"{% endif %}>{{ honor.honorName }}</a>
+                                                        </li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        {%- set empty = false %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                            {% if empty %}
+                                {% set myCss %}
+                                    [data-toggle-tabs-id*="accolades"],
+                                    [data-accordion-id*="accolades"] {
+                                    display: none;
+                                    }
+                                {% endset %}
+                                {% includeCss myCss %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </li>
+                <li class="c-accordion__element">
+                    <a class="c-accordion__trigger js-accordion__trigger" data-accordion-id="experience" href="#">Experience</a>
+                    <div class="c-accordion__content js-accordion__content">
+                        <div class="c-tabbed-content__tab-content" data-toggle-tabs-id="experience">
+                            {%- set empty = true %}
+                            <div class="container">
+                                <div class="col-md-6{% if not entry.attorneyRepresentativeClients|length and not entry.attorneyCases|length %} u-hide{% endif %}">
+                                    {% if entry.attorneyRepresentativeClients|length %}
+                                        <div class="c-tabbed-content__tab-section">
+                                            <h2 class="c-tabbed-content__tab-section__headline">Representative
+                                                Clients</h2>
+                                            <div class="c-tabbed-content__tab-section__content">
+                                                <ul class="c-tabbed-content__list">
+                                                    {% for client in entry.attorneyRepresentativeClients if client.clientName %}
+                                                        <li>
+                                                            <a{% if client.clientLink %} href="{{ client.clientLink }}"{% endif %}>{{ client.clientName }}</a>
+                                                        </li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        {%- set empty = false %}
+                                    {% endif %}
+
+                                    {% if entry.attorneyCases|length %}
+                                        <div class="c-tabbed-content__tab-section last">
+                                            <h2 class="c-tabbed-content__tab-section__headline">Cases</h2>
+                                            <div class="c-tabbed-content__tab-section__content">
+                                                <ul class="c-tabbed-content__list">
+                                                    {% for case in entry.attorneyCases if case.caseName %}
+                                                        <li>
+                                                            <a{% if case.caseLink %} href="{{ case.caseLink }}"{% endif %}>{{ case.caseName }}</a>
+                                                            {% if case.caseInformation %}
+                                                                <p class="more">{{ case.caseInformation }}</p>
+                                                            {% endif %}
+                                                        </li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        {%- set empty = false %}
+                                    {% endif %}
+
+                                    {% if entry.attorneyPublications|length %}
+                                        <div class="c-tabbed-content__tab-section last">
+                                            <h2 class="c-tabbed-content__tab-section__headline">Publications</h2>
+                                            <div class="c-tabbed-content__tab-section__content">
+                                                <ul class="c-tabbed-content__list">
+                                                    {% for publication in entry.attorneyPublications if publication.publicationName %}
+                                                        <li>
+                                                            <a{% if publication.publicationLink %} href="{{ publication.publicationLink }}"{% endif %}>{{ publication.publicationName }}</a>
+                                                        </li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        {%- set empty = false %}
+                                    {% endif %}
+
+                                </div>
+
+                                <div class="col-md-6{% if not entry.proBonoActivities|length and not entry.priorExperience|length %} u-hide{% endif %}">
+                                    {% if entry.proBonoActivities|length %}
+                                        <div class="c-tabbed-content__tab-section last">
+                                            <h2 class="c-tabbed-content__tab-section__headline">Pro Bono Activities</h2>
+                                            <div class="c-tabbed-content__tab-section__content">
+                                                <ul class="c-tabbed-content__list">
+                                                    {% for activity in entry.proBonoActivities if activity.activityName %}
+                                                        <li><a>{{ activity.activityName }}</a></li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        {%- set empty = false %}
+                                    {% endif %}
+
+                                    {% if entry.priorExperience|length %}
+                                        <div class="c-tabbed-content__tab-section last">
+                                            <h2 class="c-tabbed-content__tab-section__headline">Prior Experience</h2>
+                                            <div class="c-tabbed-content__tab-section__content">
+                                                <ul class="c-tabbed-content__list">
+                                                    {% for experience in entry.priorExperience if experience.experienceName %}
+                                                        <li><a>{{ experience.experienceName }}</a></li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        {%- set empty = false %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                            {% if empty %}
+                                {% set myCss %}
+                                    [data-toggle-tabs-id*="experience"],
+                                    [data-accordion-id*="experience"] {
+                                    display: none;
+                                    }
+                                {% endset %}
+                                {% includeCss myCss %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+
+        <div class="c-tabbed-content">
+            <div class="container">
+                <ul class="tabs c-tabbed-content__tabs">
+                    <li><a class="js-toggle-tabs__trigger is-active" data-toggle-tabs-id="credentials" href="/">Credentials</a>
+                    </li>
+                    <li><a class="js-toggle-tabs__trigger" data-toggle-tabs-id="accolades" href="#">Accolades</a></li>
+                    <li><a class="js-toggle-tabs__trigger" data-toggle-tabs-id="experience" href="#">Experience</a></li>
+                </ul>
+            </div>
+
+            <div class="content-wrapper c-tabbed-content__content-wrapper">
+                <div class="c-tabbed-content__tab-content js-toggle-tabs__target is-active"
+                     data-toggle-tabs-id="credentials">
+                    <div class="container">
+                        <div class="col-md-6{% if not entry.attorneyEducation|length and not entry.attorneyMajor|length %} u-hide{% endif %}">
+                            {% if entry.attorneyEducation|length %}
+                                <div class="c-tabbed-content__tab-section">
+                                    <h2 class="c-tabbed-content__tab-section__headline">Education</h2>
+                                    <div class="c-tabbed-content__tab-section__content">
+                                        <ul class="c-tabbed-content__education">
+                                            {% for education in entry.attorneyEducation %}
+                                                <li class="c-tabbed-content__education__block">
+                                                    <p class="c-tabbed-content__education__degree">{{ education.degree }}</p>
+                                                    <div class="c-tabbed-content__education__info">
+                                                        <a class="c-tabbed-content__education__school"{% if education.schoolLink %} href="{{ education.schoolLink }}"{% endif %}>{{ education.school }}</a>
+                                                        <p class="c-tabbed-content__education__location">{{ education.location }}</p>
+                                                        {% if education.major %}
+                                                            <p class="c-tabbed-content__education__major">Major:
+                                                                <a>{{ education.major }}</a></p>
+                                                        {% endif %}
+                                                    </div>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            {% endif %}
+
+                            {% if entry.attorneyAffiliations|length %}
+                                <div class="c-tabbed-content__tab-section last">
+                                    <h2 class="c-tabbed-content__tab-section__headline">Affiliations</h2>
+                                    <div class="c-tabbed-content__tab-section__content">
+                                        <ul class="c-tabbed-content__list">
+                                            {% for affiliation in entry.attorneyAffiliations if affiliation.affiliation %}
+                                                <li>{{ affiliation.affiliation }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            {% endif %}
+
+                        </div>
+                        <div class="col-md-6{% if not entry.attorneyAdmission %} u-hide{% endif %}">
+                            {% if entry.attorneyAdmission|length %}
+                                <div class="c-tabbed-content__tab-section last">
+                                    <h2 class="c-tabbed-content__tab-section__headline">Admissions</h2>
+                                    <div class="c-tabbed-content__tab-section__content">
+                                        <ul class="c-tabbed-content__list">
+                                            {% for attorneyAdmission in entry.attorneyAdmission if attorneyAdmission.admission %}
+                                                <li>{% if attorneyAdmission.year %}<span
+                                                            class="emphasis">{{ attorneyAdmission.year }}</span>{% endif %}{{ attorneyAdmission.admission }}
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="c-tabbed-content__tab-content js-toggle-tabs__target" data-toggle-tabs-id="accolades">
+                    <div class="container">
+                        <div class="col-md-6{% if not entry.attorneyAwards|length %} u-hide{% endif %}">
+                            {% if entry.attorneyAwards|length %}
+                                <div class="c-tabbed-content__tab-section">
+                                    <h2 class="c-tabbed-content__tab-section__headline">Awards</h2>
+                                    <div class="c-tabbed-content__tab-section__content">
+                                        <ul class="c-tabbed-content__list">
+                                            {% for award in entry.attorneyAwards if award.awardName %}
+                                                <li>
+                                                    <a{% if award.awardLink %} href="{{ award.awardLink }}"{% endif %}>{{ award.awardName }}</a>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-6{% if not entry.attorneyHonors|length %} u-hide{% endif %}">
+                            {% if entry.attorneyHonors|length %}
+                                <div class="c-tabbed-content__tab-section">
+                                    <h2 class="c-tabbed-content__tab-section__headline">Honors</h2>
+                                    <div class="c-tabbed-content__tab-section__content">
+                                        <ul class="c-tabbed-content__list">
+                                            {% for honor in entry.attorneyHonors if honor.honorName %}
+                                                <li>
+                                                    <a{% if honor.honorLink %} href="{{ honor.honorLink }}"{% endif %}>{{ honor.honorName }}</a>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="c-tabbed-content__tab-content js-toggle-tabs__target" data-toggle-tabs-id="experience">
+                    <div class="container">
+                        <div class="col-md-6{% if not entry.attorneyRepresentativeClients|length and not entry.attorneyCases|length and not entry.attorneyPublications|length %} u-hide{% endif %}">
+                            {% if entry.attorneyRepresentativeClients|length %}
+                                <div class="c-tabbed-content__tab-section">
+                                    <h2 class="c-tabbed-content__tab-section__headline">Representative Clients</h2>
+                                    <div class="c-tabbed-content__tab-section__content">
+                                        <ul class="c-tabbed-content__list">
+                                            {% for client in entry.attorneyRepresentativeClients if client.clientName %}
+                                                <li>
+                                                    <a{% if client.clientLink %} href="{{ client.clientLink }}"{% endif %}>{{ client.clientName }}</a>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            {% endif %}
+
+                            {% if entry.attorneyCases|length %}
+                                <div class="c-tabbed-content__tab-section">
+                                    <h2 class="c-tabbed-content__tab-section__headline">Cases</h2>
+                                    <div class="c-tabbed-content__tab-section__content">
+                                        <ul class="c-tabbed-content__list">
+                                            {% for case in entry.attorneyCases if case.caseName %}
+                                                <li>
+                                                    <a{% if case.caseLink %} href="{{ case.caseLink }}"{% endif %}>{{ case.caseName }}</a>
+                                                    {% if case.caseInformation %}
+                                                        <p class="more">{{ case.caseInformation }}</p>
+                                                    {% endif %}
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            {% endif %}
+
+                            {% if entry.attorneyPublications|length %}
+                                <div class="c-tabbed-content__tab-section last">
+                                    <h2 class="c-tabbed-content__tab-section__headline">Publications</h2>
+                                    <div class="c-tabbed-content__tab-section__content">
+                                        <ul class="c-tabbed-content__list">
+                                            {% for publication in entry.attorneyPublications if publication.publicationName %}
+                                                <li>
+                                                    <a{% if publication.publicationLink %} href="{{ publication.publicationLink }}"{% endif %}>{{ publication.publicationName }}</a>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            {% endif %}
+
+                        </div>
+                        <div class="col-md-6{% if not entry.proBonoActivities|length and not entry.priorExperience|length %} u-hide{% endif %}">
+                            {% if entry.proBonoActivities|length %}
+                                <div class="c-tabbed-content__tab-section">
+                                    <h2 class="c-tabbed-content__tab-section__headline">Pro Bono Activities</h2>
+                                    <div class="c-tabbed-content__tab-section__content">
+                                        <ul class="c-tabbed-content__list">
+                                            {% for activity in entry.proBonoActivities if activity.activityName %}
+                                                <li><a>{{ activity.activityName }}</a></li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            {% endif %}
+
+                            {% if entry.priorExperience|length %}
+                                <div class="c-tabbed-content__tab-section last">
+                                    <h2 class="c-tabbed-content__tab-section__headline">Prior Experience</h2>
+                                    <div class="c-tabbed-content__tab-section__content">
+                                        <ul class="c-tabbed-content__list">
+                                            {% for experience in entry.priorExperience if experience.experienceName %}
+                                                <li><a>{{ experience.experienceName }}</a></li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        {#{% set checkPublication = 0 %}#}
+
+        {#{% for publication in craft.entries.section('blog') %}#}
+        {#{% if publication.attorneyAuthor.first.slug == entry.slug %}#}
+        {#{% set checkPublication = 1 %}#}
+        {#{% endif %}#}
+        {#{% endfor %}#}
+
+        {#{% if checkPublication %}#}
+        {#<div class="c-tabbed-content__tab-content js-toggle-tabs__target"#}
+        {#data-toggle-tabs-id="publications">#}
+        {#<div class="container">#}
+        {#<div class="col-md-6">#}
+        {#{% if checkPublication %}#}
+        {#<h2 class="c-tabbed-content__tab-section__headline">Blog</h2>#}
+        {#<div class="c-tabbed-content__tab-section__content">#}
+        {#<ul class="c-tabbed-content__list">#}
+        {#{% for publication in craft.entries.section('blog') %}#}
+
+        {#{% if publication.attorneyAuthor.first.slug == entry.slug %}#}
+        {#<li>#}
+        {#<a href="{{ publication.url() }}">{{ publication.title }}</a>#}
+        {#</li>#}
+        {#{% endif %}#}
+
+        {#{% endfor %}#}
+        {#</ul>#}
+        {#</div>#}
+        {#{% endif %}#}
+        {#</div>#}
+
+        {#</div>#}
+        {#</div>#}
+        {#{% endif %}#}
+
+
+        {% set authorArticles = craft.entries.section('blog').relatedTo({
+        targetElement: entry,
+        field: 'attorneyAuthor.first'
+        }) %}
+
+        {% if authorArticles | length %}
+            <div class="c-interior-content" id="{{ entry.id }}">
+                <div class="container">
+                    <div class="col-xs-12 col-lg-12 left-col">
+                        <div class="c-news-listing">
+                            <h2 class="attorney-recent-post">Recent Blog Posts</h2>
+
+                            {% for article in authorArticles %}
+
+                                <article class="c-news-listing__article">
+                                    <a class="c-news-listing__title c-news-listing__title-my"
+                                       href="{{ article.url }}">{{ article.title }}</a>
+                                    <p class="c-news-listing__date">
+                                        <a href="{{ article.attorneyAuthor.first.url() }}">{{ article.attorneyAuthor.first.title }}</a>
+                                        |
+                                        {{ article.postDate|date('F Y') }}
+                                    </p>
+                                    <div class="c-news-listing__details">
+                                        <div class="c-news-listing__image">
+                                            {{ helpers.makeThumbnail(article) }}
+                                        </div>
+                                        <div class="c-news-listing__summary c-news-listing__summary-my">
+                                            {{ article.summary }}
+                                            <a class="c-news-listing__more"
+                                               href="{{ article.url }}">Full Article <i
+                                                        class="fa fa-chevron-right"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </article>
+
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        {% if actionBanners.attorneysCta|length %}
+            {%- set actionBanner = actionBanners.attorneysCta.first() %}
+            {% include '_includes/parts/action-banner' with {
+            class: 'gray',
+            text: actionBanner.text,
+            buttonLink: actionBanner.buttonLink,
+            buttonText: actionBanner.buttonText
+            } %}
+        {% endif %}
+
+    </main>
+
+{% endblock %}

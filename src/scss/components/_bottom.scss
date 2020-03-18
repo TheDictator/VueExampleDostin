@@ -1,0 +1,22 @@
+//
+// Label
+//
+
+// Component
+.c-bottom {
+    padding: 20px 20px;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-normal;
+    text-align: center;
+    color: lighten($gray,5%);
+    background-color: $gray-dark;
+
+    p {
+        margin-bottom: 0;
+    }
+
+    a:hover {
+        color: #fff;
+    }
+
+}

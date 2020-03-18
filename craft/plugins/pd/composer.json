@@ -1,0 +1,14 @@
+{
+	"name": "/pd",
+	"description": "Piccirilli Dorsey business logic.",
+	"type": "craft-plugin",
+	"authors": [
+		{
+			"name": "Piccirilli Dorsey",
+			"homepage": "https://picdorsey.com"
+		}
+	],
+	"require": {
+		"composer/installers": "~1.0"
+	}
+}

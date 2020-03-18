@@ -1,0 +1,58 @@
+{% extends '_layouts/basic' %}
+
+{%- set url = craft.request.getParam('url') %}
+{%- set message = craft.session.getFlash('notice') %}
+
+{%- set metaTitle = 'Email Article' %}
+{%- set bodyClass = 't-ajax-popup t-ajax-popup--email-article' %}
+
+{% block content %}
+{#
+    {% if (message) or (email is defined and email.getErrors()|length) %}
+        <div class="c-alert c-alert--danger c-alert--block u-left c-email-form__errors">
+            <strong>Whoops!</strong> Something went wrong!{% if message %} {{ message }}{% endif %}<br><br>
+            {% if email is defined and email.getErrors()|length %}
+                <ul class="errors">
+                    {% for errors in email.getErrors() %}
+                        {% for error in errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+    {% endif %}
+
+    <form class="c-form js-form" method="POST">
+        <input type="hidden" name="action" value="easyEmail/send">
+        <input type="hidden" name="redirect" value="/ajax/thanks">
+        <input type="hidden" name="articleUrl" value="{{ url }}">
+        <input type="hidden" name="template" value="_emails/sendPage">
+        <input type="hidden" name="fromEmail" value="{{ craft.systemSettings.email.emailAddress }}">
+        <input type="hidden" name="subject" value="{fromName} wants you to check out this page on {siteName}!">
+        <input type="hidden" name="required" value="fromName|toFirstName|toEmail|message">
+
+        <h2 class="t-ajax-popup__headline u-m-t-0">Email this page</h2>
+        <h4 class="t-ajax-popup__subheadline">{{ url }}</h4>
+        <div class="c-form__group">
+            <label class="c-form__label t-ajax-popup__label" form="fromName">Your Name</label>
+            <input class="c-textinput t-ajax-popup__field js-form__required" type="text" name="fromName">
+        </div>
+        <div class="c-form__group">
+            <label class="c-form__label t-ajax-popup__label" form="toFirstName">Friend's Name</label>
+            <input class="c-textinput t-ajax-popup__field js-form__required" type="text" name="toFirstName">
+        </div>
+        <div class="c-form__group">
+            <label class="c-form__label t-ajax-popup__label" form="toEmail">Friend's Email</label>
+            <input class="c-textinput t-ajax-popup__field js-form__required js-form__email" type="email" name="toEmail">
+        </div>
+        <div class="c-form__group">
+            <label class="c-form__label t-ajax-popup__label" form="message">Message</label>
+            <textarea class="c-textinput c-textarea t-ajax-popup__field t-ajax-popup__textarea" name="message" placeholder="Tell them what you think..."></textarea>
+        </div>
+        <div class="c-form__group">
+            <input class="c-button c-button--larger c-button--primary" type="submit" value="Send">
+        </div>
+    </form>
+    #}
+{% endblock %}

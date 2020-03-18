@@ -1,0 +1,72 @@
+//
+// pagination
+//
+
+.c-pagination {
+    position: relative;
+
+    display: block;
+    // overflow: hidden;
+
+    ul {
+        font-size: 0;
+        text-align: right;
+    }
+
+    li {
+        display: inline-block;
+
+        &.active a {
+            color: $gray;
+        }
+
+        a {
+            display: block;
+            padding: 0 5px;
+
+            color: $ui-primary;
+            font-size: 1rem;
+        }
+    }
+
+    &--ajax {
+        display: inline-block;
+        width: 100%;
+        margin-top: $gutter;
+        margin-left: auto;
+        margin-right: auto;
+        overflow: hidden;
+
+        text-align: center;
+
+        &__button {
+            display: inline-block;
+            margin: 0 auto;
+
+            &:before,
+            &:after {
+                content: "";
+                position: absolute;
+                border-top: 1px solid $gray;
+                width: 600px;
+                height: 1px;
+                top: 50%;
+            }
+
+            &:before {
+                right: 100%;
+            }
+
+            &:after {
+                left: 100%;
+            }
+
+            &.is-loading {
+                color: #fff;
+                background: darken($ui-primary, 8%);
+                pointer-events: none;
+                outline: 0;
+            }
+        }
+    }
+}

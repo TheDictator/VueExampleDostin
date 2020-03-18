@@ -1,0 +1,51 @@
+//
+// Search Result
+//
+
+.c-search-result {
+    margin-bottom: $gutter;
+    padding-bottom: $gutter;
+
+    font-weight: $font-weight-normal;
+
+    border-bottom: 1px solid #dedede;
+
+    &:last-child {
+        margin-bottom: 0;
+        padding-bottom: 0;
+
+        border-bottom: 0;
+    }
+
+    & > p {
+        margin: 0;
+        padding: 0;
+    }
+
+    &__title {
+        color: $blue;
+
+        & > a {
+            color: $blue;
+        }
+    }
+
+    .c-search-result__url,
+    &__url {
+        font-size: $font-size-base;
+        color: $green;
+
+        @include media-breakpoint-up(md) {
+            font-size: $font-size-sm;
+        }
+    }
+
+    &__description {
+        font-size: $font-size-base;
+        color: $gray-darker;
+
+        @include media-breakpoint-up(md) {
+            font-size: $font-size-sm;
+        }
+    }
+}

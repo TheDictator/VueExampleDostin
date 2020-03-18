@@ -1,0 +1,125 @@
+<div class="container header-wrapper">
+    <div class="row">
+        <div class="col-md-12">
+
+            <a class="logo" href="/">
+                <img class="u-hidden-print" src="/assets/img/McNameeHoseaLogo.png" alt="McNamee Hosea">
+                <img class="u-visible-print-block" src="/assets/McNameeHoseaLogo-color.jpg" alt="McNamee Hosea">
+            </a>
+
+            <span class="nav-toggle"><i class="fa fa-menu"></i></span>
+
+            <ul class="mainnav">
+                <li><a class="{% if not seg1 %}is-active{% endif %}" href="/">Home</a></li>
+                <li>
+                    <a class="{% if seg1 == "about" %}is-active{% endif %}" href="/about">About</a>
+                    {%- set dropDownItems = craft.entries({
+                        section: 'pages',
+                        slug: 'about',
+                        limit: 1
+                    }).first().getDescendants().level(2) %}
+                    {% if dropDownItems|length %}
+                        <ul class="mainnav__dropdown">
+                            {% for dropDownItems in dropDownItems %}
+                                <li><a href="{{ dropDownItems.url }}">{{ dropDownItems.title }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </li>
+                <li><a class="js-mega-menu__nav{% if seg1 == "attorneys" and not seg2 %} is-active{% endif %}" data-mega-menu-id="attorneys" href="/attorneys">Attorneys</a></li>
+                <li>
+                    <a class="{% if seg1 == "practice-areas" %}is-active{% endif %}" href="/practice-areas">Practice Areas</a>
+                    {% if practiceAreas|length %}
+                        <ul class="mainnav__dropdown">
+                            {% for practiceArea in practiceAreas %}
+                                <li><a href="{{ practiceArea.url }}">{{ practiceArea.title }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </li>
+                <li><a class="{% if seg1 == "news" %}is-active{% endif %}" href="/news">News</a></li>
+                <li><a class="{% if seg1 == "blog" %}is-active{% endif %}" href="/blog">Blog</a></li>
+                <li><a class="{% if seg1 == "contact" %}is-active{% endif %}" href="/contact">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="c-mega-menu js-mega-menu__wrapper">
+    <div class="c-mega-menu__target js-mega-menu__dropdown" data-mega-menu-id="attorneys">
+        {#{%- set practiceAreas = craft.entries({#}
+            {#section: 'practiceAreas',#}
+            {#level: 1#}
+        {#}) %}#}
+        <div class="container">
+            <form class="row" action="/attorneys" method="GET">
+                <div class="col-xs-6">
+                    <div class="c-input-group c-input-group--icon">
+                        <label class="c-input-group__label">Search for a lawyer by name</label>
+                        <div class="c-input-group__input">
+                            <input class="c-textinput c-input-group__textinput" name="name">
+                            <i class="fa fa-search c-input-group__icon"></i>
+                        </div>
+                    </div>
+                    <div class="c-attorney-search__alphabetically">
+                        <label class="c-input-group__label">Browse Alphabetically</label>
+                        <ul>
+                            <li><a href="/attorneys?letter=A">A</a></li>
+                            <li><a href="/attorneys?letter=B">B</a></li>
+                            <li><a href="/attorneys?letter=C">C</a></li>
+                            <li><a href="/attorneys?letter=D">D</a></li>
+                            <li><a href="/attorneys?letter=E">E</a></li>
+                            <li><a href="/attorneys?letter=F">F</a></li>
+                            <li><a href="/attorneys?letter=G">G</a></li>
+                            <li><a href="/attorneys?letter=H">H</a></li>
+                            <li><a href="/attorneys?letter=I">I</a></li>
+                            <li><a href="/attorneys?letter=J">J</a></li>
+                            <li><a href="/attorneys?letter=K">K</a></li>
+                            <li><a href="/attorneys?letter=L">L</a></li>
+                            <li><a href="/attorneys?letter=M">M</a></li>
+                            <li><a href="/attorneys?letter=N">N</a></li>
+                            <li><a href="/attorneys?letter=O">O</a></li>
+                            <li><a href="/attorneys?letter=P">P</a></li>
+                            <li><a href="/attorneys?letter=Q">Q</a></li>
+                            <li><a href="/attorneys?letter=R">R</a></li>
+                            <li><a href="/attorneys?letter=S">S</a></li>
+                            <li><a href="/attorneys?letter=T">T</a></li>
+                            <li><a href="/attorneys?letter=U">U</a></li>
+                            <li><a href="/attorneys?letter=V">V</a></li>
+                            <li><a href="/attorneys?letter=W">W</a></li>
+                            <li><a href="/attorneys?letter=X">X</a></li>
+                            <li><a href="/attorneys?letter=Y">Y</a></li>
+                            <li><a href="/attorneys?letter=Z">Z</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="c-input-group">
+                        <label class="c-input-group__label">Filter by Practice Area</label>
+                        <div class="c-select">
+                            <select class="js-select-autosubmit c-textinput c-select__input c-input-group__textinput c-input-group__select" name="practiceArea">
+                                <option value="" disabled selected>Practice Area</option>
+                                <option value="" value="">All</option>
+                                {% for practiceArea in practiceAreas %}
+                                    <option value="{{ practiceArea.id }}">{{ practiceArea.title }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="c-input-group">
+                        <label class="c-input-group__label">Filter by Location</label>
+                        <div class="c-select">
+                            <select class="js-select-autosubmit c-textinput c-select__input c-input-group__textinput c-input-group__select" name="location">
+                                <option value="" disabled="" required="" selected="">By Location</option>
+                                <option value="" value="">All</option>
+                                <option value="greenbelt, md">Greenbelt, MD</option>
+                                <option value="annapolis, md">Annapolis, MD</option>
+                                <option value="alexandria, va">Alexandria, VA</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

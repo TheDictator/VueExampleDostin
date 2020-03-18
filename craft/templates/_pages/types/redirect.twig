@@ -1,0 +1,8 @@
+{% if entry.redirect|length %}
+    {%- set redirect = entry.redirect.first() %}
+    {% if (redirect.type == 'internal') and (redirect.internalPage|length) %}
+        {% redirect redirect.internalPage.first().getUrl() %}
+    {% elseif nav.type == 'external' %}
+        {% redirect redirect.externalUrl %}
+    {% endif %}
+{% endif %}

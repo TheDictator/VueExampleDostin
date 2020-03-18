@@ -1,0 +1,42 @@
+{% extends '_layouts/main' %}
+
+{%- set metaTitle = 'Page not found' %}
+{%- set bodyClass = 't-interior t-error t-error--404' %}
+{%- set ogDescription = 'Page not found' %}
+
+{% block content %}
+
+<main class="o-main" role="main">
+    <div class="c-interior-page-utility">
+        <div class="container">
+            {% include '_includes/parts/breadcrumbs' %}
+
+        </div>
+    </div>
+
+    {% include '_includes/parts/interior-stage' with {
+        pageTitle: '404 — Page Not Found'
+    } %}
+
+    <div class="c-interior-content">
+        <div class="container">
+            <div class="col-xs-12 col-lg-8 left-col">
+                <div class="o-main__content">
+                    <h2>Whoops! We're sorry.</h2>
+                    <p>The page you requested does not exist. Try searching for what you're looking for:</p>
+                    <form class="c-input-group c-input-group--duel" action="/search/results">
+                        <input class="c-textinput js-form__required" type="text" name="q" placeholder="Keywords" value="{{ craft.request.getLastSegment() }}" required>
+                        <button class="c-button c-button--filled">Go</button>
+                   </form>
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-lg-4 right-col">
+
+            </div>
+        </div>
+    </div>
+
+</main>
+
+{% endblock %}

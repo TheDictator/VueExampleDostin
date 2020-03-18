@@ -1,0 +1,67 @@
+//
+// attorney-listing
+//
+
+.c-attorney-listing {
+    display: block;
+    // margin-bottom: -$gutter;
+    width: 100%;
+
+    &:last-child {
+        // margin-bottom: -$gutter;
+    }
+
+    &__attorney {
+        display: block;
+        margin-bottom: $gutter;
+
+        position: relative;
+        // border: 1px solid #dedede;
+        overflow: hidden;
+
+        img {
+            width: 100%;
+        }
+
+        .overlay {
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            padding: 20px 15px;
+            background-color: rgba(0,128,165,0.6);
+            text-align: left;
+            -webkit-transition: background-color .3s, padding .3s;
+            transition: background-color .3s, padding .3s;
+
+            .name,
+            .title {
+                font-size: $font-size-base;
+                font-family: $font-family-serif;
+                line-height: $line-height - .2;
+                color: #fff;
+                margin-bottom: 0;
+
+                @include media-breakpoint-up(xl) {
+                    font-size: $font-size-lg;
+                }
+            }
+
+            .title {
+                font-size: $font-size-sm;
+                font-family: $font-family-sans-serif;
+                font-style: italic;
+                color: $gray-lighter;
+                margin-bottom: 0;
+
+                @include media-breakpoint-up(xl) {
+                    font-size: $font-size-base;
+                }
+            }
+        }
+
+        &:hover .overlay {
+            padding: 30px 15px;
+            background-color: rgba(0,0,0,0.6);
+        }
+    }
+}

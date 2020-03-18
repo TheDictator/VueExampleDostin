@@ -1,0 +1,16 @@
+{%- set extra = extra|default('') %}
+
+{% if entry.headerImage|length %}
+    {%- set headerImage = entry.headerImage.first() %}
+    <img class="main-photo" src="{{ headerImage.getUrl({
+        mode: 'crop',
+        width: 1000,
+        height: 500,
+        quality: 100,
+        position: 'center-center'
+    }) }}" alt="{{ headerImage.altText }}">
+{% endif %}
+
+{{ entry.body }}
+
+{{ extra|raw }}

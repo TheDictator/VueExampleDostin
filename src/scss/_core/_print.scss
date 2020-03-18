@@ -1,0 +1,105 @@
+//
+// Print
+//
+
+@media print {
+    @page {
+        size: 8.5in 11in;
+        margin: 14mm 0mm 14mm 0mm;
+    }
+
+    * {
+        background: transparent !important;
+        color: #000 !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+
+    body {
+        max-width: none;
+    }
+
+    .container {
+        width: 100%;
+        max-width: none;
+    }
+
+    .c-topbar,
+    .c-interior-page-utility,
+    .c-action,
+    .o-footer,
+    .c-bottom,
+    .o-main__sidebar,
+    .backto,
+    .mobilenav,
+    .mainnav,
+    .nav-toggle,
+    .c-interior-stage,
+    .c-attorney-slider,
+    .main-photo,
+    body:before {
+        display: none !important;
+    }
+
+    .colorbar {
+        padding-left: 0;
+    }
+
+    .c-interior-stage {
+        padding-bottom: 0;
+    }
+
+    .c-interior-content {
+        padding: 0 !important;
+
+        .left-col {
+            width: 100% !important;
+        }
+    }
+
+    pre,
+    blockquote {
+        border: 1px solid #999;
+        page-break-inside: avoid;
+    }
+
+    thead {
+        display: table-header-group;
+    }
+
+    tr,
+    img {
+        page-break-inside: avoid;
+    }
+
+    img {
+        max-width: 100% !important;
+    }
+
+    @page {
+        margin: 0.5cm;
+    }
+
+    p,
+    h2,
+    h3 {
+        orphans: 3;
+        widows: 3;
+    }
+
+    h2,
+    h3 {
+        page-break-after: avoid;
+    }
+
+    .print-title + .o-main__content > h2 {
+        display: block;
+
+        font-weight: 400 !important;
+        font-size: 1.4rem !important;
+        line-height: 1.3 !important;
+        border-bottom: 1px solid #dedede !important;
+        padding-bottom: 20px !important;
+        margin-bottom: 20px !important;
+    }
+}

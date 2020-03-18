@@ -1,0 +1,49 @@
+//
+// Radio
+//
+
+.c-radio {
+    display: block;
+    height: 30px;
+
+    label,
+    input,
+    div {
+        display: inline-block;
+    }
+
+    .fs-checkbox div.fs-checkbox-marker {
+        border: 1px solid $gray-lighter !important;
+        border-radius: 0;
+    }
+
+    .fs-checkbox-flag {
+        background: #F7F7F9;
+    }
+
+    label {
+        margin: 0 10px 0 0;
+
+        color: $gray-light;
+        line-height: 25px;
+        font-size: 1.15rem;
+    }
+
+    input {
+
+    }
+
+    .fs-checkbox {
+        @include valign();
+
+        margin: 0;
+    }
+
+    .fs-checkbox.fs-light .fs-checkbox-marker {
+        border-color: $body-color;
+    }
+
+    .fs-light.fs-checkbox-radio .fs-checkbox-flag {
+        background: $body-color;
+    }
+}

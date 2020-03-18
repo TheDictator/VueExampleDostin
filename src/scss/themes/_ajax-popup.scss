@@ -1,0 +1,40 @@
+//
+// Email Article
+//
+
+.t-ajax-popup {
+    padding: $gutter;
+    overflow: hidden;
+    box-shadow: none;
+
+    &__headline {
+        display: block;
+        margin: 0 0 ($gutter / 3) 0;
+
+        font-size: 2.5rem;
+        font-family: $font-family-sans-serif;
+        font-weight: $font-weight-bold;
+    }
+
+    &__subheadline {
+        display: block;
+        margin: 0 0 $gutter 0;
+
+        font-size: 1.25rem;
+        font-family: $font-family-sans-serif;
+        font-weight: $font-weight-thin;
+    }
+
+    &__field {
+        height: 3rem;
+    }
+
+    &__textarea {
+        height: 5.6rem;
+    }
+
+    &__label {
+        font-size: 1rem;
+        font-family: $font-family-sans-serif;
+    }
+}

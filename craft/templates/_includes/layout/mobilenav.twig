@@ -1,0 +1,17 @@
+<form class="nav-search" action="/search/results">
+    <input type="text" placeholder="Search">
+    <button type="submit" class="search-trigger"><i class="fa fa-search"></i></button>
+</form>
+
+<ul>
+    <li><a {% if not seg1 %}class="is-active"{% endif %} href="/">Home</a></li>
+    <li><a {% if seg1 == "about" %}class="is-active"{% endif %} href="/about">About</a></li>
+    <li><a {% if seg1 == "attorneys" %}class="is-active"{% endif %} href="/attorneys">Attorneys</a></li>
+    <li><a {% if seg1 == "practice-areas" %}class="is-active"{% endif %} href="/practice-areas">Practice Areas</a></li>
+    <li><a {% if seg1 == "news" %}class="is-active"{% endif %} href="/news">News</a></li>
+    <li><a {% if seg1 == "blog" %}class="is-active"{% endif %} href="/blog">Blog</a></li>
+    <li><a {% if seg1 == "contact" %}class="is-active"{% endif %} href="/contact">Contact</a></li>
+    <li><a {% if seg1 == "careers" %}class="is-active"{% endif %} href="/careers">Careers</a></li>
+    {# <li><a class="{% if seg1 == "client-portal" %}is-active{% endif %} href="/client-portal">Client Portal</a></li> #}
+    <li><a {% if seg1 == "make-a-payment" %}class="is-active"{% endif %} href="/make-a-payment"><i class="fa fa-lock"></i> Make a Payment</a></li>
+</ul>

@@ -1,0 +1,42 @@
+{#{%- set practiceAreas = craft.entries({#}
+    {#section: 'practiceAreas',#}
+    {#level: 1#}
+{#}) %}#}
+
+
+<div class="c-attorney-search js-attorney-search">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-md-4">
+                <div class="c-input-group c-input-group--icon">
+                    <div class="c-input-group__input">
+                        <input type="text" class="c-textinput c-input-group__textinput js-attorney-search__name" placeholder="Search by Name" name="name" v-model="form.name" @keyup="getAttorneys | debounce 500">
+                        <i class="fa fa-search c-input-group__icon"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-4">
+                <div class="c-select">
+                    <select class="c-textinput c-select__input c-input-group__textinput c-input-group__select" name="practiceArea" v-model="form.practiceArea" @change="getAttorneys">
+                        <option value="" disabled :selected="form.practiceArea == ''">Practice Area</option>
+                        <option value="" value="">All</option>
+                        {% for practiceArea in practiceAreas %}
+                            <option value="{{ practiceArea.id }}"{% if craft.request.getParam('practiceArea') and craft.request.getParam('practiceArea') == practiceArea.title %} selected{% endif %}>{{ practiceArea.title }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-4">
+                <div class="c-select">
+                    <select class="c-textinput c-select c-select__input" name="location" v-model="form.location" @change="getAttorneys">
+                        <option value="" disabled :selected="form.location == ''">By Location</option>
+                        <option value="" value="">All</option>
+                        <option value="greenbelt"{% if craft.request.getParam('location') and craft.request.getParam('location') == 'greenbelt' %} selected{% endif %}>Greenbelt, MD</option>
+                        <option value="annapolis"{% if craft.request.getParam('location') and craft.request.getParam('location') == 'annapolis' %} selected{% endif %}>Annapolis, MD</option>
+                        <option value="alexandria"{% if craft.request.getParam('location') and craft.request.getParam('location') == 'alexandria' %} selected{% endif %}>Alexandria, VA</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

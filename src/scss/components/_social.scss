@@ -1,0 +1,205 @@
+//
+// Social
+//
+
+$icon-size: 2.1875rem;
+
+$facebook: #3b5998;
+$twitter: #00aced;
+$linkedin: #0077b5;
+
+.c-social {
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    &--larger {
+        .c-social__item {
+            height: ($icon-size * 1.2);
+            width: ($icon-size * 1.2);
+
+            &,
+            a {
+                font-size: ($font-size-lg * 1.2);
+                line-height: ($icon-size * 1.2);
+            }
+        }
+    }
+
+    &--largest {
+        .c-social__item {
+            height: ($icon-size * 1.8);
+            width: ($icon-size * 1.8);
+            margin-right: ($gutter / 2);
+
+            &:last-child {
+                margin-right: 0;
+            }
+
+            &,
+            a {
+                font-size: ($font-size-lg * 1.8);
+                line-height: ($icon-size * 1.8);
+            }
+        }
+    }
+
+    &--full {
+        @include clearfix();
+
+        display: block;
+        width: 100%;
+
+        font-size: 0;
+
+        .c-social__item {
+            display: inline-block;
+            margin-right: ($gutter / 2);
+            float: left;
+            width: 30%;
+            width: calc(33% - #{(($gutter / 2) * 2) / 3});
+            height: initial;
+
+            @include media-breakpoint-up(md) {
+                margin-right: $gutter;
+                width: calc(33% - #{($gutter * 2) / 3});
+            }
+
+            &:last-child {
+                margin-right: 0;
+            }
+
+            a {
+                padding: ($gutter / 2.5) 0;
+
+                font-size: 1.4rem;
+                line-height: initial;
+            }
+        }
+    }
+
+    &--vertical {
+        display: block;
+        margin-bottom: 0;
+
+        .c-social__item {
+            height: auto;
+            margin-bottom: ($gutter / 1.5);
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+
+            &,
+            a {
+                width: 100%;
+
+                line-height: 1;
+            }
+
+            a {
+                padding: ($gutter / 2) 0;
+
+                font-size: 1.9rem;
+            }
+        }
+    }
+
+    &__item {
+        position: relative;
+
+        display: inline-block;
+        height: $icon-size;
+        width: $icon-size;
+        margin-right: 5px;
+
+        font-family: $font-family-sans-serif;
+
+        background-color: $gray;
+
+        &:last-child {
+            margin-right: 0;
+        }
+
+        &,
+        a {
+            color: #fff;
+            font-size: $font-size-lg;
+            line-height: $icon-size;
+            text-align: center;
+        }
+
+        a {
+            position: relative;
+
+            display: block;
+            vertical-align: middle;
+
+            &:after {
+                content: '';
+
+                position: absolute;
+                top: 0;
+                left: 0;
+
+                display: block;
+                width: 100%;
+                height: 100%;
+
+                background-color: #000;
+                opacity: 0;
+
+                transition: opacity $animation-xshort ease-in-out;
+            }
+
+            &:hover{
+                color: #fff;
+
+                &:after {
+                    opacity: 0.15;
+                }
+            }
+        }
+
+
+        &--facebook {
+            background-color: $facebook;
+        }
+
+        &--twitter {
+            background-color: $twitter;
+        }
+
+        &--linkedin {
+            background-color: $linkedin;
+        }
+
+        &--email {
+            background-color: #d62d20;
+        }
+
+        &__badge {
+            position: absolute;
+            top: -11px;
+            right: -10px;
+
+            display: none;
+            height: 22px;
+            padding: 0 13px;
+            z-index: $zIndex-12;
+
+            color: #616161;
+            font-size: 0.83rem;
+            font-weight: $font-weight-bold;
+            line-height: 22px;
+
+            background: #F2EEF0;
+            border: 1px solid #D4D4D8;
+            border-radius: 37%;
+
+            &.is-active {
+                display: block;
+            }
+        }
+    }
+}

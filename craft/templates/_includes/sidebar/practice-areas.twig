@@ -1,0 +1,32 @@
+<aside class="o-main__sidebar">
+
+    {% if practiceArea is defined and practiceArea.section == 'Practice Areas' %}
+        {%- set practiceAreaChildren = practiceArea.getDescendants().level(2) %}
+
+        {% if practiceAreas|length %}
+            <div class="right-col c-subnav o-main__sidebar__component">
+                <p class="section-head-nav">Practice Areas</p>
+
+                <ul class="c-interior-right-nav">
+                    {% for nav in practiceAreas %}
+                        {%- set isActive = (nav.slug == practiceArea.slug) and seg2 %}
+                        <li class="c-navbar__navigation__nav-item">
+                            <a href="{{ nav.url }}" class="{% if isActive %}is-active{% endif %}">{{ nav.title }} <i class="fa fa-chevron-right"></i></a>
+                            {% if isActive and practiceAreaChildren|length %}
+                                <ul class="c-navbar__navigation__subnav">
+                                    {% for child in practiceAreaChildren %}
+                                        {%- set isActive = entry is defined and entry.slug == child.slug %}
+                                        <li class="c-navbar__navigation__subnav__nav-item">
+                                            <a href="{{ child.url }}" class="{% if isActive %}is-active{% endif %}">{{ child.title }} <i class="fa fa-chevron-right"></i></a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    {% endif %}
+
+</aside>

@@ -1,0 +1,69 @@
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-53GNKGR');</script>
+<!-- End Google Tag Manager -->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<!-- DNS prefetching (Useful for Amazon S3 and Rackspace Files -->
+<link rel="dns-prefetch" href="">
+
+<!-- Facebook -->
+<meta property="og:title" content="{{ metaTitle|raw }}">
+<meta property="og:type" content="article">
+{% if ogDescription is not empty %}
+    <meta property="og:description" content="{{ ogDescription|raw }}">
+{% endif %}
+{% if ogImage is not empty %}
+    <meta property="og:image" content="{{ ogImage }}">
+{% endif %}
+<meta property="og:url" content="{{ craft.request.getUrl() }}">
+<meta property="og:site_name" content="{{ siteName }}">
+<!-- <meta property="fb:admins" content="">
+<meta property="fb:app_id" content=""> -->
+
+<!-- Twitter -->
+<meta name="twitter:site" content="">
+<meta name="twitter:url" content="{{ craft.request.getUrl() }}">
+{% if ogDescription is not empty %}
+    <meta name="twitter:description" content="{{ ogDescription|raw }}">
+{% endif %}
+{% if ogImage is not empty %}
+    <meta name="twitter:image" content="{{ ogImage }}">
+{% endif %}
+<meta name="twitter:title" content="{{ metaTitle|raw }}">
+<meta name="twitter:card" content="summary">
+
+<!-- Canonical URL -->
+<link rel="canonical" href="{{ craft.request.getUrl() }}">
+<title>{{ metaTitle|raw }}{% if not craft.pD.stringContains(metaTitle, siteName) %} | {{ siteName }}{% endif %}</title>
+<meta name="description" content="{{ metaDescription }}">
+
+<!-- Styles -->
+<link rel="stylesheet" href="/assets/css/style.css" type="text/css">
+
+<!-- Fonts/Icons -->
+<script src="https://use.fonticons.com/6c33adc4.js"></script>
+
+<!-- Favicons -->
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon.png">
+<link rel="icon" type="image/png" href="/assets/img/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/assets/img/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="manifest" href="/assets/img/favicons/manifest.json">
+<link rel="mask-icon" href="/assets/img/favicons/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="shortcut icon" href="/assets/img/favicons/favicon.ico">
+<meta name="msapplication-config" content="/assets/img/favicons/browserconfig.xml">
+<meta name="theme-color" content="#37a0c2">
+
+<!--[if lt IE 9]>
+    <script src="/assets/vendor/js/html5shiv.min.js"></script>
+    <script src="/assets/vendor/js/respond.min.js"></script>
+<![endif]-->
+
+<!-- Analytics -->
+{{ analytics.googleAnalytics|raw }}

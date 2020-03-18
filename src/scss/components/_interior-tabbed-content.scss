@@ -1,0 +1,311 @@
+//
+// App
+//
+
+// Config
+
+// Component
+.c-tabbed-content {
+    display: none;
+
+    background-color: $gray-lightest;
+
+    @include media-breakpoint-up(md) {
+        display: block;
+    }
+
+    .container {
+        padding: 0 0.9375rem;
+    }
+
+    .tabs {
+        width: 100%;
+        margin-bottom: -1px;
+        overflow: hidden;
+
+        > li {
+            display: block;
+
+            > a {
+                float: left;
+                width: 100%;
+                margin-bottom: -1px;
+                margin-right: -1px;
+                padding: 0.625rem 1.25rem;
+                font-size: $font-size-sm;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                border: 1px solid #dedede;
+
+                &,
+                &:after {
+                    transition: background-color $animation-xshort ease-in-out,
+                                color $animation-xshort ease-in-out,
+                                border-color $animation-xshort ease-in-out;
+                }
+
+
+                @include media-breakpoint-up(md) {
+                    width: auto;
+                }
+
+                &:hover {
+                    color: #fff;
+                    background-color: $ui-primary;
+                    border: 1px solid $ui-primary;
+                }
+            }
+
+            > a.is-active,
+            > a.current {
+                position: relative;
+
+                background-color: #fff;
+                border-bottom: 1px solid #fff;
+
+                &:hover {
+                    &,
+                    &:after {
+                        background-color: $ui-primary;
+                    }
+                }
+
+                &:after {
+                    content: '';
+
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+
+                    display: block;
+                    width: 100%;
+                    height: 6px;
+                    margin-top: -3px;
+                    z-index: $zIndex-2;
+
+                    background-color: #fff;
+                }
+            }
+        }
+    }
+
+    .content-wrapper {
+        border-top: 1px solid #dedede;
+        background-color: #fff;
+    }
+
+    &__content-wrapper {
+        position: relative;
+        overflow: hidden;
+        // height: 750px;
+    }
+
+    &__tabs {
+
+    }
+
+    &__tab-section {
+        display: block;
+        margin-bottom: ($gutter * 1.5);
+
+        &:last-child,
+        &.last {
+            margin-bottom: 0;
+        }
+
+        .c-tabbed-content__tab-section__headline {
+        // &__headline {
+            margin-top: 0;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+
+            color: $gray-darker;
+            font-weight: $font-weight-medium;
+        }
+
+        &__content {
+
+            > :first-child {
+                margin-top: 0;
+            }
+
+            > :last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    &__tab-content {
+        // position: absolute;
+        // top: 0;
+        // left: 0;
+        // right: 0;
+
+        display: none;
+        padding: ($gutter * 1.5) 0;
+
+        &.is-active {
+            display: block;
+
+            animation: fadeIn $animation-xshort ease 0s 1 forwards;
+        }
+
+        &.is-out {
+            position: absolute;
+            left: 0;
+            right: 0;
+            animation: fadeOut $animation-xshort ease 0s 1 forwards;
+        }
+
+    }
+
+    &__education {
+        &__block {
+            @include clearfix();
+
+            display: block;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+
+            border-bottom: 1px solid $gray-lighter;
+        }
+
+        &__degree,
+        &__info {
+            display: inline-block;
+            float: left;
+        }
+
+        &__degree {
+            width: 22%;
+            margin: 0;
+            padding-right: 3%;
+
+            color: $ui-primary;
+            font-family: $font-family-serif;
+            font-weight: $font-weight-medium;
+            font-size: 1.5rem;
+            text-align: center;
+
+            @include media-breakpoint-up(md) {
+                font-size: 2rem;
+            }
+        }
+
+        &__info {
+            width: 75%;
+        }
+
+        &__type,
+        &__school {
+            display: inline-block;
+            margin: 0;
+        }
+
+        &__type,
+        &__school,
+        &__location {
+            font-size: 1.2rem;
+        }
+
+        &__type {
+            font-weight: $font-weight-bold;
+
+            &:after {
+                content: '|';
+
+                display: inline-block;
+                padding-left: 3px;
+                padding-right: 3px;
+
+                color: $gray;
+            }
+        }
+
+        &__school {
+            color: $ui-primary;
+        }
+
+        &__location {
+            margin: 0;
+            color: #676767;
+
+            font-size: 1rem;
+        }
+
+        &__major {
+            display: block;
+            margin: 5px 0 0 0;
+
+            color: $gray-darker;
+            font-family: $font-family-serif;
+            font-size: 1rem;
+            font-weight: $font-weight-light;
+
+            a {
+                padding-left: 5px;
+
+                color: $ui-primary;
+                font-family: $font-family-sans-serif;
+                font-weight: $font-weight-normal;
+            }
+        }
+    }
+
+    &__list {
+        color: $gray-light;
+
+        &,
+        li {
+            list-style-type: square;
+            list-style-position: outside;
+            margin-left: ($gutter / 3);
+        }
+
+        li {
+            display: list-item;
+
+            line-height: 2;
+        }
+
+        .emphasis {
+            color: $blue;
+
+            &:after {
+                content: '|';
+
+                display: inline-block;
+                padding-left: 3px;
+                padding-right: 3px;
+
+                color: $gray-light;
+            }
+        }
+
+        .more {
+            display: block;
+            margin-top: 5px;
+        }
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}

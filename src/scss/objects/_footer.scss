@@ -1,0 +1,106 @@
+//
+// App
+//
+
+// Object
+.o-footer {
+    padding: 60px 0.9375rem;
+    background-color: $gray-darker;
+
+    .footer-col {
+        width: 100%;
+        margin-bottom: 20px;
+        float: left;
+        font-weight: $font-weight-normal;
+
+        @include media-breakpoint-up(sm) {
+            width: auto;
+            margin-right: 50px;
+        }
+    }
+
+    .info-right {
+        float: left;
+        width: auto;
+
+        @include media-breakpoint-up(xl) {
+            float: right;
+        }
+    }
+
+    .logo {
+        display: inline-block;
+        width: auto;
+        margin-bottom: 20px;
+
+        @include media-breakpoint-up(sm) {
+            width: 280px;
+        }
+    }
+
+    .footernav {
+
+        margin-bottom: 0;
+
+        li {
+
+            a {
+                color: $blue-light;
+
+                &:hover {
+                    color: #fff;
+                }
+            }
+        }
+    }
+
+    .links {
+        display: none;
+
+        @include media-breakpoint-up(md) {
+            display: block;
+            width: auto;
+            line-height: $line-height + .2;
+        }
+    }
+
+    .tertiary {
+        margin-left: 20px;
+
+        @include media-breakpoint-up(md) {
+        margin-left: -20px;
+        }
+    }
+
+    .title {
+        margin-bottom: 5px;
+        font-family: $font-family-serif;
+        font-size: $font-size-lg;
+        font-weight: $font-weight-normal;
+        color: #fff;
+    }
+
+    p {
+        font-size: $font-size-sm;
+        color: $gray-light;
+    }
+
+    .social {
+        margin-right: 5px;
+        font-size: 2.6rem;
+        color: $gray;
+
+        &:hover {
+            color: $blue;
+        }
+    }
+
+    .c-button {
+        border-color: $gray;
+        color: #fff;
+
+        &:hover {
+            border-color: $blue;
+        }
+    }
+}

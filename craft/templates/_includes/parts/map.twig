@@ -1,0 +1,162 @@
+<div class="c-map">
+    {% includeJsFile 'https://maps.googleapis.com/maps/api/js?key=AIzaSyC9bbqgWrSBv9eXz5OU6tWUHUr9Zwq6NII' %}
+    {% set myJs %}
+        // When the window has finished loading create our google map below
+        google.maps.event.addDomListener(window, 'load', init);
+
+        function init() {
+            // Basic options for a simple Google Map
+            // For more options see: https://developers.google.com/maps/documentation/javascript/reference#MapOptions
+            var mapOptions = {
+                // How zoomed in you want the map to start at (always required)
+                zoom: {{ (craft.request.isMobileBrowser()) ? 9 : 10 }},
+
+                // The latitude and longitude to center the map (always required)
+                center: new google.maps.LatLng(38.921223, -76.803026), // New York
+
+                disableDefaultUI: true,
+                draggable: false,
+                scrollwheel: false,
+
+                // How you would like to style the map.
+                // This is where you would paste any style found on Snazzy Maps.
+                styles:
+                [
+                    {"featureType":"administrative","elementType":"all","stylers":[{"visibility":"on"},{"saturation":-100},{"lightness":0}]},
+                    {"featureType":"road","elementType":"all","stylers":[{"visibility":"on"},{"saturation":-100},{"lightness":30}]},
+                    {"featureType":"water","elementType":"all","stylers":[{"visibility":"on"},{"color":"#009cba"},{"saturation":-60},{"lightness":60}]},
+                    {"featureType":"landscape.man_made","elementType":"all","stylers":[{"visibility":"simplified"},{"saturation":-100},{"lightness":0}]},
+                    {"featureType":"landscape.natural","elementType":"all","stylers":[{"visibility":"simplified"},{"saturation":-100},{"lightness":0}]},
+                    {"featureType":"poi","elementType":"all","stylers":[{"visibility":"on"},{"saturation":-100},{"lightness":0}]},
+                    {"featureType":"transit","elementType":"all","stylers":[{"visibility":"off"},{"saturation":-100},{"lightness":60}]}
+                ]
+            };
+
+            // Get the HTML DOM element that will contain your map
+            // We are using a div with id="map" seen below in the <body>
+            var mapElement = document.getElementById('map');
+
+            // Create the Google Map using our element and options defined above
+            var map = new google.maps.Map(mapElement, mapOptions);
+
+            // Let's also add a marker while we're at it
+            var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
+
+            {% set markerIcon = (craft.request.isMobileBrowser() ? 'https://cecf7d96826548cb6fbf-4d185777fa0bb02c6b7029d804808d9e.ssl.cf5.rackcdn.com/ui/map-marker-small.png' : 'https://cecf7d96826548cb6fbf-4d185777fa0bb02c6b7029d804808d9e.ssl.cf5.rackcdn.com/ui/map-marker.png') %}
+
+            var marker1 = new google.maps.Marker({
+                position: new google.maps.LatLng(39.008054, -76.894177),
+                map: map,
+                icon: '{{ markerIcon }}',
+                location: 'greenbelt'
+            });
+
+            var marker2 = new google.maps.Marker({
+                position: new google.maps.LatLng(38.994275, -76.543574),
+                map: map,
+                icon: '{{ markerIcon }}',
+                location: 'annapolis'
+            });
+
+            var marker3 = new google.maps.Marker({
+                position: new google.maps.LatLng(38.815052, -77.045092),
+                map: map,
+                icon: '{{ markerIcon }}',
+                location: 'alexandria'
+            });
+
+            function showMapPopup(location) {
+                $('.map-popup-box__content').removeClass('is-active');
+                $('.map-popup-box ' + '.' + location).addClass('is-active');
+            }
+
+            marker1.addListener('click', function () {
+                $('.map-popup-box').addClass('is-active');
+                showMapPopup(this.location);
+            });
+
+            marker2.addListener('click', function () {
+                $('.map-popup-box').addClass('is-active');
+                showMapPopup(this.location);
+            });
+
+            marker3.addListener('click', function () {
+                $('.map-popup-box').addClass('is-active');
+                showMapPopup(this.location);
+            });
+
+            $('.map-popup-box__close').on('click', function () {
+                $('.map-popup-box').addClass('is-out');
+
+                setTimeout(function () {
+                    $('.map-popup-box').removeClass('is-out is-active');
+                    $('.map-popup-box__content').removeClass('is-active');
+                }, 250);
+            });
+
+        }
+    {% endset %}
+
+    {% includeJs myJs %}
+    <div id="map"></div>
+    <div class="map-popup-box">
+        <div class="map-popup-box__wrapper">
+            <a class="map-popup-box__close"><i class="fa fa-cross"></i></a>
+            <div class="map-popup-box__content greenbelt">
+                <p class="map-popup-box__headline">Greenbelt Office</p>
+                <address class="map-popup-box__address">
+                    6411 Ivy Lane Suite 200<br>
+                    Greenbelt, MD 20770
+                </address>
+                <ul class="map-popup-box__phone">
+                    <li><a class="num js-phone-number" href="tel:3014412420">(301) 441-2420</a> <span class="label">Phone</span></li>
+                    <li><a class="num" href="tel:3019829450">(301) 982-9450</a> <span class="label">Fax</span></li>
+                </ul>
+            </div>
+
+            <div class="map-popup-box__content alexandria">
+                <p class="map-popup-box__headline">Alexandria Office</p>
+                <address class="map-popup-box__address">
+                    950 N. Washington Street Suite 210<br>
+                    Alexandria, VA 22314
+                </address>
+                <ul class="map-popup-box__phone">
+                    <li><a class="num js-phone-number" href="tel:7032709600">(703) 270-9600</a> <span class="label">Phone</span></li>
+                </ul>
+            </div>
+
+            <div class="map-popup-box__content annapolis">
+                <p class="map-popup-box__headline">Annapolis Office</p>
+                <address class="map-popup-box__address">
+                    888 Bestgate Road Suite 402 <br>
+                    Annapolis, MD 21401
+                </address>
+                <ul class="map-popup-box__phone">
+                    <li><a class="num js-phone-number" href="tel:4102669909">(410) 266-9909</a> <span class="label">Phone</span></li>
+                    <li><a class="num" href="tel:4102668425">(410) 266-8425</a> <span class="label">Fax</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="map-copy-box">
+
+        <p class="section-head">Locations</p>
+        <span class="map-box-toggle"><i class="fa fa-menu"></i><i class="fa fa-cross"></i></span>
+        <p class="location">In Maryland</p>
+        <p class="address">6411 Ivy Lane, Suite 200<br>
+            Greenbelt, MD 20770<br>
+            <span class="number js-phone-number">(301) 441-2420</span> <span class="type">/ Phone</span><br>
+            <span class="number">(301) 982-9450</span> <span class="type">/ Fax</span><br>
+        </p>
+        <p class="address">888 Bestgate Road Suite 402<br>
+            Annapolis, MD 21401<br>
+            <span class="number js-phone-number">(410) 266-9909</span> <span class="type">/ Phone</span><br>
+            <span class="number">(410) 266-8425</span> <span class="type">/ Fax</span><br>
+        </p>
+        <p class="location">In Virginia</p>
+        <p class="address">950 N. Washington Street Suite 210<br>
+            Alexandria, VA 22314<br>
+            <span class="number js-phone-number">(703) 270-9600</span> <span class="type">/ Phone</span><br>
+        </p>
+    </div>
+</div>

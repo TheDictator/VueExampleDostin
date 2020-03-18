@@ -1,0 +1,45 @@
+<div class="container">
+    <div class="footer-col">
+        <a class="logo" href="/"><img src="/assets/img/McNameeHoseaLogo.png" alt="McNamee Hosea"></a>
+        <p class="address">
+            McNamee Hosea<br>
+            6411 Ivy Lane, Suite 200<br>
+            Greenbelt, Maryland 20770<br>
+            301-441-2420
+        </p>
+    </div>
+    <div class="info-right">
+        <div class="footer-col links">
+            <p class="title">Links</p>
+            <ul class="footernav">
+                <li><a class="{% if not seg1 %}is-active{% endif %}" href="/">Home</a></li>
+                <li><a class="{% if seg1 == "about" %}is-active{% endif %}" href="/about">About</a></li>
+                <li><a class="{% if seg1 == "attorneys" %}is-active{% endif %}" href="/attorneys">Attorneys</a></li>
+                <li><a class="{% if seg1 == "practice-areas" %}is-active{% endif %}" href="/practice-areas">Practice Areas</a></li>
+                <li><a class="{% if seg1 == "news" %}is-active{% endif %}" href="/news">News</a></li>
+                <li><a class="{% if seg1 == "blog" %}is-active{% endif %}" href="/blog">Blog</a></li>
+                <li><a class="{% if seg1 == "contact" %}is-active{% endif %}" href="/contact">Contact</a></li><br>
+            </ul>
+        </div>
+        <div class="footer-col links tertiary">
+            <p class="title">&nbsp;</p>
+            <ul class="footernav">
+                <li><a class="{% if seg1 == "careers" %}is-active{% endif %}" href="/careers">Careers</a></li>
+                {# <li><a class="{% if seg1 == "client-portal" %}is-active{% endif %}" href="/client-portal">Client Portal</a></li> #}
+                <li><a class="{% if seg1 == "payment" %}is-active{% endif %}" href="/make-a-payment"><i class="fa fa-lock"></i> Make a Payment</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <p class="title">Contact Us</p>
+            <p>Need help from our attorneys?</p>
+            <a href="/contact" class="c-button">Get help today</a>
+        </div>
+        <div class="footer-col">
+            <p class="title">Connect</p>
+            <p>Stay in the loop.</p>
+            <a href="{{ social.facebook }}"><i class="fa fa-facebook-square social"></i></a>
+            <a href="{{ social.twitter }}"><i class="fa fa-twitter-square social"></i></a>
+            <a href="{{ social.linkedin }}"><i class="fa fa-linkedin-square social"></i></a>
+        </div>
+    </div>
+</div>

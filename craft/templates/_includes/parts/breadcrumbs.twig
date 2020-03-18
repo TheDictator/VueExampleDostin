@@ -1,0 +1,39 @@
+{% if entry is defined and entry.section == 'pages' %}
+    {% if (entry.level >= 1) %}
+        <ul class="c-breadcrumb breadcrumb">
+            <li class="c-breadcrumb__crumb"><a href="/"><span>Home</span></a></li>
+            {% for crumb in entry.getAncestors() %}
+                <li class="c-breadcrumb__crumb"><a href="{{ crumb.getUrl() }}"><span>{{ crumb.title }}</span></a></li>
+            {% endfor %}
+            <li class="active"><span>{{ entry.title }}</span></li>
+        </ul>
+    {% elseif (entry.section.handle == 'events') or (entry.section.handle == 'news') or (entry.section.handle == 'blog') %}
+        {%- set seg1 = craft.request.getSegment(1) %}
+        <ul class="c-breadcrumbs">
+            <li class="c-breadcrumb__crumb"><a href="/"><span>Home</span></a></li>
+            <li class="c-breadcrumb__crumb"><a href="/{{ seg1 }}"><span>{{ seg1 }}</span></a></li>
+            <li class="c-breadcrumb__crumb active"><span>{{ entry.title }}</span></li>
+        </ul>
+    {% endif %}
+{% else %}
+    <ul class="c-breadcrumb breadcrumb">
+        <li class="c-breadcrumb__crumb"><a href="/"><span>Home</span></a></li>
+        {%- set url = '/' %}
+        {% for segment in craft.request.getSegments() %}
+            {%- set url = url ~ segment ~ '/' %}
+            {% if segment != 'topic' and segment != 'archive' and segment != 'calendar' %}
+                {% if loop.last and entry is defined %}
+                    <li class="c-breadcrumb__crumb"><a href="{{ url }}"><span>{{ entry.title }}</span></a></li>
+                {% else %}
+                    <li class="c-breadcrumb__crumb"><a href="{{ url }}"><span>{{ segment|replace({
+                        '-': ' ',
+                        '_': ' '
+                    }) }}</span></a></li>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    </ul>
+{% endif %}
+
+
+

@@ -1,0 +1,50 @@
+//
+// Text area
+//
+
+// Config
+$area-height: 100px;
+$area-padding: 1rem;
+$area-background: #fff;
+
+// Component
+.c-textarea {
+    width: 100%;
+    min-height: $area-height;
+    padding: $area-padding;
+
+    border-radius: $br-input;
+    border: 1px solid $gray-lighter;
+    background: none $area-background;
+    -webkit-appearance: none;
+
+    font-size: 1rem;
+
+    transition: background $animation-xshort ease-in-out, border-color $animation-xshort ease-in-out;
+
+    &:focus {
+        border: 1px solid $ui-primary;
+        background-color: #fff;
+        outline: 0;
+    }
+
+    &--disabled {
+        background-color: $gray-lightest;
+    }
+
+    &--invalid {
+        border-color: $red;
+    }
+
+}
+
+.c-news-listing__title-my {
+    font-size: 1.25rem !important;
+}
+.c-news-listing__summary-my{
+    font-size: 1rem !important;
+}
+
+.attorney-recent-post{
+    font-size: 1.7rem !important;
+}

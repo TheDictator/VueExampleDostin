@@ -1,0 +1,49 @@
+//
+// Attorney Search
+//
+
+.c-attorney-search {
+    display: block;
+    padding-bottom: 40px;
+
+    [class*="col"] {
+        margin-bottom: ($gutter / 2);
+
+        @include media-breakpoint-up(md) {
+            margin-bottom: 0;
+        }
+    }
+
+    &__alphabetically {
+        display: block;
+
+        ul {
+            @include clearfix();
+
+            position: relative;
+            left: -10px;
+
+            margin: 0;
+        }
+
+        li {
+            display: inline-block;
+            float: left;
+
+            a {
+                display: block;
+                width: 2.3rem;
+                height: 2.3rem;
+
+                font-size: 1.3rem;
+                font-weight: $font-weight-bold;
+                line-height: 1;
+                text-align: center;
+
+                &:hover {
+                    color: $ui-primary;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,24 @@
+{#
+    Helper macros
+#}
+
+{% macro makeThumbnail(entry) %}
+    {% if entry is not null %}
+        {% if entry.thumbnail|length %}
+            {%- set image = entry.thumbnail.first() %}
+        {% elseif entry.headerImage|length %}
+            {%- set image = entry.headerImage.first() %}
+        {% endif %}
+        {% if image is defined %}
+            <a href="{{ entry.url }}">
+                <img class="featured-photo" src="{{ image.getUrl({
+                    mode: 'crop',
+                    width: 600,
+                    height: 300,
+                    quality: 100,
+                    position: 'center-center'
+                }) }}" alt="{{ image.altText }}">
+            </a>
+        {% endif %}
+    {% endif %}
+{% endmacro %}

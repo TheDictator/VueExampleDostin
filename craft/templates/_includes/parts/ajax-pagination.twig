@@ -1,0 +1,7 @@
+{% if paginate.totalPages > 1 %}
+    <span class="c-pagination c-pagination--ajax">
+        {% if paginate.nextUrl %}
+            <a class="c-pagination--ajax__button c-button c-button--primary js-ajax__trigger" href="{{ paginate.nextUrl }}">Load More</a>
+        {% endif %}
+    </span>
+{% endif %}

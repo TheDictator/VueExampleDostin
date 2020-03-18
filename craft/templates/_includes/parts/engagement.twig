@@ -1,0 +1,19 @@
+{%- set printOverride = printOverride is defined ? printOverride : null %}
+
+{% if printOverride %}
+    <li><i class="fa fa-print"></i> <a href="{{ printOverride.url }}">Print</a></li>
+{% else %}
+    <li><i class="fa fa-print"></i> <a href="#" onclick="window.print()">Print</a></li>
+{% endif %}
+{#<li><i class="fa fa-share"></i> <a class="js-popup" data-popup-selector="#popup-share" data-popup-width="370" data-popup-height="124" href="#">Share</a></li>#}
+
+{#<div class="c-social-share" id="popup-share" style="display: none">#}
+{#    <div class="inline_content">#}
+{#        <ul class="c-social c-social--largest">#}
+{#            <li class="c-social__item c-social__item--facebook js-share js-share--facebook"><a class="js-share__action" href="#"><span class="c-social__item__badge js-share__badge"></span><i class="fa fa-facebook"></i></a></li>#}
+{#            <li class="c-social__item c-social__item--twitter js-share js-share--twitter"><a class="js-share__action" href="#"><span class="c-social__item__badge js-share__badge"></span><i class="fa fa-twitter"></i></a></li>#}
+{#            <li class="c-social__item c-social__item--linkedin js-share js-share--linkedin"><a class="js-share__action" href="#"><span class="c-social__item__badge js-share__badge"></span><i class="fa fa-linkedin"></i></a></li>#}
+{#            <li class="c-social__item c-social__item--email js-share js-share--email"><a class="js-share__action" href="{{ siteUrl }}ajax/email?url={{ craft.request.getUrl() }}"><span class="c-social__item__badge js-share__badge"></span><i class="fa fa-envelope"></i></a></li>#}
+{#        </ul>#}
+{#    </div>#}
+{#</div>#}

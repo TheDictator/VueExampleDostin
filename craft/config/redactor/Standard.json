@@ -1,0 +1,38 @@
+{
+    "buttons": [
+        "format",
+        "bold",
+        "italic",
+        "lists",
+        "link",
+        "image",
+        "file",
+        "video",
+        "horizontalrule"
+    ],
+    "plugins": [
+        "source",
+        "video",
+        "iconic2",
+        "imagePosition"
+    ],
+    "formatting": [
+        "h2",
+        "h3",
+        "h4",
+        "h5",
+        "p",
+        "blockquote"
+    ],
+    "formattingAdd": {
+        "callout": {
+            title: '<span>Callout</span>',
+            args: ['p', 'class', 'callout']
+        },
+    },
+    "pastePlainText": true,
+    "script": true,
+    "videoContainerClass": "c-embed",
+    "minHeight": 300,
+    "structure": true
+}

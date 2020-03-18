@@ -1,0 +1,70 @@
+//
+// Label
+//
+
+// Component
+.c-interior-content {
+    padding: 40px 0;
+    background-color: $gray-lightest;
+
+    .left-col {
+
+        @include media-breakpoint-up(md) {
+             padding: 0;
+        }
+
+        @include media-breakpoint-up(lg) {
+             padding-right: 40px;
+        }
+
+        img.main-photo {
+            display: none;
+
+            @include media-breakpoint-up(md) {
+                display: block;
+                width: 100%;
+                margin-bottom: $gutter;
+            }
+        }
+
+        h2 {
+            font-size: $font-size-h1;
+        }
+
+        ul {
+            list-style-type: square;
+            list-style-position: outside;
+
+            > li {
+                margin-left: 20px;
+                margin-bottom: 5px;
+            }
+        }
+
+        ol {
+
+            > li {
+                margin-left: 20px;
+                margin-bottom: 5px;
+            }
+        }
+
+        .callout {
+            margin: 30px 0;
+            padding: 20px 30px;
+            font-size: $font-size-lg;
+            line-height: $line-height - .2;
+            font-style: italic;
+            font-weight: 400;
+            background-color: #fff;
+            border: 4px double #dedede;
+        }
+    }
+
+    .right-col {
+
+        @include media-breakpoint-up(md) {
+             padding: 0;
+        }
+    }
+}

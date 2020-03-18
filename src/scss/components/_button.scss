@@ -1,0 +1,48 @@
+//
+// Button
+//
+
+// Component
+.c-button {
+    height: auto;
+    display: inline-block;
+    padding: 0.625rem 1.25rem;
+
+    color: $gray;
+    font-size: $font-size-sm;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+
+    background-color: transparent;
+    border: 2px solid $gray-light;
+
+    transition: background-color $animation-xshort linear,
+                color $animation-xshort linear,
+                border $animation-xshort linear;
+
+    &:hover {
+        border-color: $blue;
+        background-color: $blue;
+        color: #fff !important;
+    }
+
+    &:active {
+    }
+
+    &:focus {
+
+    }
+
+    &--filled {
+        color: #fff;
+        background: $ui-primary;
+        border: 1px solid $ui-primary;
+
+        &:hover {
+            color: $ui-primary !important;
+
+            background: transparent;
+        }
+    }
+}

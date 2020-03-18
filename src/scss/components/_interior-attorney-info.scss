@@ -1,0 +1,173 @@
+//
+// App
+//
+
+// Config
+
+// Component
+.c-attorney-info {
+    position: relative;
+    padding: 0 0 40px;
+    background-color: #fff;
+
+    .col-wrapper {
+        position: relative;
+        margin: 0 0.9375rem;
+        background-color: $blue-dark;
+        overflow: hidden;
+
+        background-image: url(/assets/img/capital.png);
+        background-position: bottom right;
+        background-repeat: no-repeat;
+
+        @include media-breakpoint-up(lg) {
+            // height: 520px;
+            margin: 0;
+        }
+
+        .office {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            margin-bottom: 0;
+            padding: 20px 40px;
+            font-size: $font-size-sm;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #fff;
+            background-color: rgba(0,0,0,0.3);
+
+            @include media-breakpoint-up(lg) {
+                width: 50%;
+                padding: 10px 40px;
+            }
+
+            @include media-breakpoint-up(xxl) {
+                padding: 30px 40px;
+            }
+        }
+    }
+
+    .left-col {
+        padding: 0;
+
+        .photo {
+            width: 100%;
+
+            @include media-breakpoint-only(lg) {
+                margin-top: 38px;
+            }
+        }
+    }
+
+    .right-col {
+        padding: 40px;
+        color: #fff;
+
+        @include media-breakpoint-up(lg) {
+            padding: 20px 40px;
+        }
+
+        @include media-breakpoint-up(xxl) {
+            padding: 60px 40px 0;
+        }
+
+        .name {
+            font-family: $font-family-serif;
+            font-size: $font-size-h2;
+            line-height: $line-height - .2;
+            margin-bottom: 0;
+
+            @include media-breakpoint-up(xl) {
+                font-size: $font-size-h1;
+            }
+        }
+
+        .title {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            font-size: $font-size-h2 - .2;
+            font-style: italic;
+            color: $blue-light;
+            border-bottom: 1px solid $blue;
+
+            @include media-breakpoint-up(lg) {
+                margin-bottom: 20px;
+                padding-bottom: 10px;
+            }
+
+            @include media-breakpoint-up(xxl) {
+                margin-bottom: 30px;
+                padding-bottom: 20px;
+            }
+        }
+
+        .info {
+            padding-bottom: 30px;
+
+            @include media-breakpoint-up(lg) {
+                padding-bottom: 0;
+            }
+
+            li a {
+                display: block;
+                margin-bottom: 10px;
+                color: #fff;
+                font-size: $font-size-base + .2;
+
+                @include media-breakpoint-up(xxl) {
+                    margin-bottom: 15px;
+                    font-size: $font-size-h2;
+                }
+
+                > i {
+                    font-size: $font-size-h2;
+                    padding: 7px;
+                    margin-right: 10px;
+                    background-color: $blue;
+                    width: 39px;
+
+                    text-align: center;
+
+                    @include media-breakpoint-up(xl) {
+                        padding: 10px;
+                        width: 50px;
+                    }
+                }
+            }
+        }
+    }
+
+    .quote-mark {
+        display: inline-block;
+        margin: 20px 0 15px;
+        padding: 0 40px 10px;
+        font-size: 30px;
+        text-align: center;
+        border-bottom: 2px solid $blue-light;
+        text-align: center;
+    }
+
+    .divider {
+        margin: 60px auto 20px;
+        width: 100px;
+        height: 2px;
+        background-color: $blue;
+
+    }
+
+    .quote {
+        margin: 0;
+        font-family: $font-family-serif;
+        font-size: $font-size-h3;
+        font-weight: $font-weight-normal;
+        line-height: $line-height - .2;
+        text-align: center;
+        border-bottom: 0;
+
+        @include media-breakpoint-up(lg) {
+            font-size: $font-size-h2;
+        }
+    }
+}

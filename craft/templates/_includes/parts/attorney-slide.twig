@@ -1,0 +1,39 @@
+{%- set attorneySlideHeadline = attorneySlideHeadline|default('Meet the Attorneys') %}
+{% if attorneys|length %}
+    <div class="c-attorney-slider">
+        <p class="section-head">{{ attorneySlideHeadline }}</p>
+        <div class="container">
+            <div class="attorney-slideshow">
+                {% for attorney in attorneys if not attorney.attorneyExcludeFromHomepage %}
+                    <div class="col-sm-12">
+                        <div class="attorney-slide slide">
+                            <a class="entry" href="{{ attorney.url }}">
+                                {% if attorney.attorneyHeadshot|length %}
+                                    {%- set headshot = attorney.attorneyHeadshot.first() %}
+                                    <img src="{{ headshot.getUrl({
+                                        mode: 'crop',
+                                        width: 350,
+                                        height: 450,
+                                        quality: 100,
+                                        position: 'center-center'
+                                    }) }}" alt="{{ headshot.altText }}">
+                                {% else %}
+                                    <img src="/assets/img/lawyer.png" alt="">
+                                {% endif %}
+                                <div class="overlay">
+                                    <p class="name">{{ attorney.title }}</p>
+                                    <p class="title">{{ attorney.attorneyPosition }}</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="arrow arrow-left slick-prev" id="prev"><i class="fa fa-chevron-left"></i></div>
+        <div class="arrow arrow-right slick-next" id="next"><i class="fa fa-chevron-right"></i></div>
+
+        <a href="/attorneys" class="c-button">View all Attorneys <i class="fa fa-chevron-right"></i></a>
+    </div>
+{% endif %}

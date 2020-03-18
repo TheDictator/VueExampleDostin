@@ -1,0 +1,89 @@
+{% extends '_layouts/main' %}
+
+{% if category is defined %}
+    {%- set category = craft.categories({
+        group: 'news',
+        slug: category
+    }).first() %}
+    {%- set news = craft.entries({
+        section: 'news',
+        order: 'postDate desc',
+        relatedTo: category
+    }) %}
+    {%- set metaTitle = 'McNamee Hosea News & Press' ~ ' — ' ~ category.title %}
+{% elseif archiveYear is defined %}
+    {%- set news = craft.entries({
+        section: 'news',
+        order: 'postDate desc',
+        after: archiveYear,
+        before: archiveYear + 1
+    }) %}
+    {%- set metaTitle = 'McNamee Hosea News & Press' ~ ' — ' ~ archiveYear %}
+{% elseif craft.request.getSegment(2) %}
+    {# Just /archive or /cateogry in which case redirect to root url #}
+    {% redirect 'news' %}
+{% else %}
+    {%- set news = craft.entries({
+        section: 'news',
+        order: 'postDate desc'
+    }) %}
+    {%- set metaTitle = 'McNamee Hosea News & Press' %}
+{% endif %}
+
+{%- set bodyClass = 't-interior t-listing t-news t-news--listing' %}
+
+{% block content %}
+<main class="o-main" role="main">
+    <div class="c-interior-page-utility">
+        <div class="container">
+                {% include '_includes/parts/breadcrumbs' %}
+            <ul class="breadcrumb print">
+                {% include '_includes/parts/engagement' %}
+            </ul>
+        </div>
+    </div>
+    {% include '_includes/parts/interior-stage' with {
+        pageTitle: metaTitle
+    } %}
+
+    <div class="c-interior-content">
+        <div class="container">
+            <div class="col-xs-12 col-lg-8 left-col">
+                <!--h1 class="c-interior-content__headline">{{ metaTitle }}</h1-->
+
+                {% if news|length %}
+                    <div class="c-news-listing">
+                        {% paginate news.limit(10) as entries %}
+                        {% for article in entries %}
+                            <article class="c-news-listing__article">
+                                <a class="c-news-listing__title" href="{{ article.url }}">{{ article.title }}</a>
+                                <p class="c-news-listing__date">
+                                    {% if article.attorneyAuthor | length %}
+                                        <a href="{{ article.attorneyAuthor.first.url() }}">{{ article.attorneyAuthor.first.title}}</a> |
+                                    {% endif %}
+                                    {{ article.postDate|date('F Y') }}</p>
+                                <div class="c-news-listing__details">
+                                    <div class="c-news-listing__image">
+                                        {{ helpers.makeThumbnail(article) }}
+                                    </div>
+                                    <div class="c-news-listing__summary">
+                                        {{ article.summary }}
+                                        <a class="c-news-listing__more" href="{{ article.url }}">Full Article <i class="fa fa-chevron-right"></i></a>
+                                    </div>
+                                </div>
+                            </article>
+                        {% endfor %}
+                        {% include '_includes/parts/pagination' %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="col-xs-12 col-lg-4 right-col">
+                {% include '_includes/sidebar/news' %}
+            </div>
+        </div>
+    </div>
+</main>
+
+
+{% endblock %}
